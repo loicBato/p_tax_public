@@ -3,6 +3,13 @@
 // /withdrawal_receipts et /payments
 // ============================================================
 
+export const VEHICLE_TYPES = [
+    { val: 'voiture', label: 'Véhicule léger' },
+    { val: 'moto', label: 'Moto / Tricycle' },
+    { val: 'transport', label: 'Transport commun' },
+    { val: 'poids_lourd', label: 'Poids lourd' },
+];
+
 export const MOCK_WITHDRAWAL_RECEIPTS = {
     success: true,
     message: "Withdrawal receipts retrieved successfully.",
@@ -10,6 +17,7 @@ export const MOCK_WITHDRAWAL_RECEIPTS = {
         {
             id: 52,
             ref: "WR2604AA00052",
+            vehicle_type: "poids_lourd",
             date: "2026-04-20T12:16:17.000000Z",
             agent_id: "PR001",
             plate: "9131AJ",
@@ -63,6 +71,7 @@ export const MOCK_WITHDRAWAL_RECEIPTS = {
         {
             id: 51,
             ref: "WR2604AA00051",
+            vehicle_type: "voiture",
             date: "2026-04-20T12:12:09.000000Z",
             agent_id: "AC001",
             plate: "9131AJ",
@@ -134,6 +143,7 @@ export const MOCK_WITHDRAWAL_RECEIPTS = {
         {
             id: 46,
             ref: "WR2604AA00046",
+            vehicle_type: "voiture",
             date: "2026-04-20T10:19:51.000000Z",
             agent_id: "AC001",
             plate: "1234TA",
@@ -210,6 +220,7 @@ export const MOCK_WITHDRAWAL_RECEIPTS = {
         {
             id: 44,
             ref: "WR2604AA00044",
+            vehicle_type: "voiture",
             date: "2026-04-19T08:30:00.000000Z",
             agent_id: "AC002",
             plate: "TG1234AB",
@@ -324,6 +335,7 @@ export const MOCK_PAYMENTS = {
             receipt: {
                 id: 46,
                 ref: "WR2604AA00046",
+                vehicle_type: "voiture",
                 date: "2026-04-20T10:19:51.000000Z",
                 agent_id: "AC001",
                 plate: "1234TA",
@@ -406,6 +418,7 @@ export const MOCK_PAYMENTS = {
             receipt: {
                 id: 45,
                 ref: "WR2604AA00045",
+                vehicle_type: "moto",
                 date: "2026-04-17T09:00:00.000000Z",
                 agent_id: "AC001",
                 plate: "TG4432BD",

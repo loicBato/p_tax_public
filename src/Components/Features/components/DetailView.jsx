@@ -42,7 +42,7 @@ export function DetailView({ doc, onBack }) {
             }
         });
         if (doc.withdrawnDocs.vehicle) {
-            withdrawnItems.push({ label: 'Véhicule / Engin', value: 'Mis en fourrière' });
+            withdrawnItems.push({ label: 'Engin', value: 'Mis en fourrière' });
         }
     }
 
@@ -80,14 +80,14 @@ export function DetailView({ doc, onBack }) {
                                 <Car className="w-4 h-4" /> {doc.plateNumber}
                             </div>
                         </div>
-                        <button 
+                        <button
                             onClick={handleDownload}
                             disabled={downloading}
                             className="px-6 py-4 bg-white text-primary rounded-xl font-semibold uppercase text-[11px] tracking-widest hover:bg-app-bg transition-all flex items-center gap-2 cursor-pointer text-center disabled:opacity-50 disabled:cursor-wait"
                         >
                             {downloading ? (
                                 <>
-                                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25"/><path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75"/></svg>
+                                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" /><path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" /></svg>
                                     <span>Génération...</span>
                                 </>
                             ) : (
@@ -103,14 +103,14 @@ export function DetailView({ doc, onBack }) {
                 {/* Corps du document */}
                 <div className="p-4 md:p-6 relative bg-white">
                     {/* Statut + Propriétaire */}
-                    <div className="flex justify-between items-center mb-6">
-                        <div className={cn(
+                    <div className="flex justify-end items-center mb-6">
+                        {/* <div className={cn(
                             "px-4 py-2 rounded-lg text-[11px] uppercase tracking-widest border flex items-center gap-2 shadow-sm",
                             getStatusColor(doc.status)
                         )}>
                             {getStatusIcon(doc.status)}
                             {doc.status === 'PAYE' ? 'Payé' : doc.status === 'IMPAYE' ? 'Impayé' : doc.status}
-                        </div>
+                        </div> */}
                         <div className="flex flex-col items-end">
                             <span className="text-xs text-text-secondary leading-none mb-1">Contrevenant</span>
                             <p className="text-xs font-semibold text-text-title">{doc.citizenName}</p>
@@ -138,7 +138,7 @@ export function DetailView({ doc, onBack }) {
                             <DetailField label="Propriétaire du véhicule" value={doc.ownerName} />
                         )}
 
-                        {doc.amount > 0 && (
+                        {doc.type === 'PROCES_VERBAL' && doc.amount > 0 && (
                             <DetailField
                                 label={doc.type === 'PROCES_VERBAL' ? "Montant réglé" : doc.status === 'IMPAYE' ? "Montant à régulariser" : "Montant réglé"}
                                 value={`${doc.amount.toLocaleString()} FCFA`}
@@ -169,9 +169,9 @@ export function DetailView({ doc, onBack }) {
                                         {typeof item.value === 'string' && item.value !== 'Mis en fourrière' && (
                                             <span className="text-[10px] text-text-secondary ml-auto truncate max-w-[120px]">{item.value}</span>
                                         )}
-                                        {item.value === 'Mis en fourrière' && (
+                                        {/* {item.value === 'Mis en fourrière' && (
                                             <span className="text-[10px] text-error font-semibold ml-auto">Fourrière</span>
-                                        )}
+                                        )} */}
                                     </div>
                                 ))}
                             </div>

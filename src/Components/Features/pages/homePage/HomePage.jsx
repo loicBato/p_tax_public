@@ -5,21 +5,39 @@ import { searchDocuments } from '../../services/documentService';
 
 export default function HomePage() {
     const navigate = useNavigate();
-    const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
 
-    const handleSearch = async (e) => {
-        e?.preventDefault();
-        if (!searchQuery.trim()) return;
-
+    /**
+     * Reçoit un objet du HomeView :
+     *  - { mode: 'ref', reference: '...' }
+     *  - { mode: 'adv', engin, docType, plaque, chassis }
+     */
+    const handleSearch = async (params) => {
         setIsSearching(true);
         try {
-            const foundDocs = await searchDocuments(searchQuery);
-            // Navigate to results page with search data via location state
+            let query = '';
+            let filters = {};
+
+            if (params.mode === 'ref') {
+                // Recherche par référence — pas de filtre supplémentaire
+                query = params.reference;
+            } else {
+                // Mode avancé — plaque ou châssis + filtres docType & vehicleType
+                query = params.plaque || params.chassis || '';
+                filters = {
+                    docType: params.docType || null,       // 'recepisse' | 'pv'
+                    vehicleType: params.engin || null,     // 'voiture' | 'moto' | 'transport' | 'poids_lourd'
+                };
+            }
+
+            if (!query.trim()) return;
+
+            const foundDocs = await searchDocuments(query, filters);
+
             navigate('/results', {
                 state: {
                     results: foundDocs,
-                    searchQuery: searchQuery,
+                    searchQuery: query,
                 },
             });
         } catch (error) {
@@ -32,8 +50,6 @@ export default function HomePage() {
     return (
         <HomeView
             onSearch={handleSearch}
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
             isSearching={isSearching}
         />
     );

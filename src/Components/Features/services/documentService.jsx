@@ -61,6 +61,7 @@ const normalizeReceipt = (receipt) => {
         motifs,
         issuer: receipt.post_office_name || 'Non spécifié',
         description: receipt.description || null,
+        vehicleType: receipt.vehicle_type || null,
         agentNote: receipt.agent_note || null,
         agentId: receipt.agent_id || null,
         agent: receipt.agent || null,
@@ -108,6 +109,7 @@ const normalizePayment = (payment) => {
         motifs,
         issuer: receipt.post_office_name || 'Non spécifié',
         description: receipt.description || null,
+        vehicleType: receipt.vehicle_type || null,
         paymentMode: payment.payment_mode || null,
         receiptRef: payment.withdrawal_receipt_ref || null,
         agentId: receipt.agent_id || payment.agent_id || null,
@@ -122,11 +124,16 @@ const normalizePayment = (payment) => {
 
 /**
  * Recherche de documents par référence, plaque ou châssis
+ * @param {string} query - Texte de recherche (ref, plaque ou châssis)
+ * @param {Object} [filters] - Filtres optionnels pour la recherche avancée
+ * @param {string} [filters.docType] - 'recepisse' | 'pv' (filtre par type de document)
+ * @param {string} [filters.vehicleType] - 'voiture' | 'moto' | 'transport' | 'poids_lourd'
  */
-export const searchDocuments = async (query) => {
+export const searchDocuments = async (query, filters = {}) => {
     if (!query) return [];
 
     const upperQuery = query.toUpperCase().replace(/[\s-]/g, '');
+    const { docType, vehicleType } = filters;
 
     try {
         const [receipts, payments] = await Promise.all([
@@ -136,35 +143,47 @@ export const searchDocuments = async (query) => {
 
         const results = [];
 
-        // Filtrer les récépissés
-        receipts.forEach((receipt) => {
-            const refUpper = (receipt.ref || '').toUpperCase().replace(/[\s-]/g, '');
-            const plateUpper = (receipt.plate || '').toUpperCase().replace(/[\s-]/g, '');
-            const vinUpper = (receipt.vin || '').toUpperCase().replace(/[\s-]/g, '');
+        // ── Récépissés ──
+        // Inclure sauf si le filtre docType est 'pv' (on ne veut que des PV)
+        if (docType !== 'pv') {
+            receipts.forEach((receipt) => {
+                // Filtre par type d'engin
+                if (vehicleType && receipt.vehicle_type !== vehicleType) return;
 
-            if (
-                refUpper.includes(upperQuery) ||
-                plateUpper.includes(upperQuery) ||
-                (vinUpper && vinUpper.includes(upperQuery))
-            ) {
-                results.push(normalizeReceipt(receipt));
-            }
-        });
+                const refUpper = (receipt.ref || '').toUpperCase().replace(/[\s-]/g, '');
+                const plateUpper = (receipt.plate || '').toUpperCase().replace(/[\s-]/g, '');
+                const vinUpper = (receipt.vin || '').toUpperCase().replace(/[\s-]/g, '');
 
-        // Filtrer les paiements (PV)
-        payments.forEach((payment) => {
-            const refUpper = (payment.ref || '').toUpperCase().replace(/[\s-]/g, '');
-            const plateUpper = (payment.receipt?.plate || '').toUpperCase().replace(/[\s-]/g, '');
-            const vinUpper = (payment.receipt?.vin || '').toUpperCase().replace(/[\s-]/g, '');
+                if (
+                    refUpper.includes(upperQuery) ||
+                    plateUpper.includes(upperQuery) ||
+                    (vinUpper && vinUpper.includes(upperQuery))
+                ) {
+                    results.push(normalizeReceipt(receipt));
+                }
+            });
+        }
 
-            if (
-                refUpper.includes(upperQuery) ||
-                plateUpper.includes(upperQuery) ||
-                (vinUpper && vinUpper.includes(upperQuery))
-            ) {
-                results.push(normalizePayment(payment));
-            }
-        });
+        // ── Paiements (PV) ──
+        // Inclure sauf si le filtre docType est 'recepisse' (on ne veut que des récépissés)
+        if (docType !== 'recepisse') {
+            payments.forEach((payment) => {
+                // Filtre par type d'engin (sur le receipt associé)
+                if (vehicleType && payment.receipt?.vehicle_type !== vehicleType) return;
+
+                const refUpper = (payment.ref || '').toUpperCase().replace(/[\s-]/g, '');
+                const plateUpper = (payment.receipt?.plate || '').toUpperCase().replace(/[\s-]/g, '');
+                const vinUpper = (payment.receipt?.vin || '').toUpperCase().replace(/[\s-]/g, '');
+
+                if (
+                    refUpper.includes(upperQuery) ||
+                    plateUpper.includes(upperQuery) ||
+                    (vinUpper && vinUpper.includes(upperQuery))
+                ) {
+                    results.push(normalizePayment(payment));
+                }
+            });
+        }
 
         return results;
     } catch (error) {

@@ -48,11 +48,11 @@ export function PlateVerificationModal({
 
                     <form onSubmit={onVerify} className="space-y-6">
                         <div id="plate-input-container" className="flex justify-center flex-col gap-1">
-                            <label className="text-xs tracking-widest text-text-secondary text-left block mb-1 ml-1">Immatriculation (Ex: TG-0000-XX)</label>
+                            <label className="text-xs tracking-widest text-text-secondary text-left block mb-1 ml-1">Immatriculation</label>
                             <input
                                 type="text"
                                 autoFocus
-                                placeholder="TG-0000-XX"
+                                placeholder="1234AB"
                                 className={cn(
                                     "w-full text-center uppercase tracking-widest text-xl font-bold py-4 rounded-xl border outline-none transition-all",
                                     plateError
