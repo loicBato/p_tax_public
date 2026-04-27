@@ -18,7 +18,7 @@ const FAQ_DATA = [
         items: [
             {
                 q: "Comment trouver mon récépissé ou procès-verbal ?",
-                a: "Sur la page d'accueil, vous pouvez rechercher votre document en utilisant soit votre numéro de plaque d'immatriculation (ex: TG-1234-AB), la référence du document (ex: WR2604AA00052) ou le numéro de châssis de votre véhicule."
+                a: "Sur la page d'accueil, vous pouvez rechercher votre document en utilisant soit votre numéro de plaque d'immatriculation, la référence du document ou le numéro de châssis de votre véhicule."
             },
             {
                 q: "Que faire si ma recherche ne donne aucun résultat ?",
@@ -100,7 +100,7 @@ export default function FaqPage() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="max-w-4xl w-full mx-auto px-4 py-8">
             {/* Header */}
             <div className="text-center mb-10">
                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -110,7 +110,7 @@ export default function FaqPage() {
                     Foire Aux Questions
                 </h1>
                 <p className="text-sm text-text-secondary max-w-lg mx-auto">
-                    Retrouvez toutes les réponses à vos questions concernant l'utilisation du portail, le suivi de vos dossiers et les paiements.
+                    Retrouvez toutes les réponses à vos questions concernant l'utilisation du portail.
                 </p>
             </div>
 

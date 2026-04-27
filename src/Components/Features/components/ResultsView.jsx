@@ -14,7 +14,7 @@ function maskName(name) {
     if (!name) return '—';
     return name.split(/\s+/).map(word => {
         if (word.length <= 2) return word;
-        return word.slice(0, 2).toUpperCase() + 'x'.repeat(Math.min(word.length - 0, 6));
+        return word.slice(0, 2).toUpperCase() + 'x'.repeat(Math.min(word.length - 2, 3));
     }).join(' ');
 }
 
@@ -92,9 +92,9 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                                 <div className="flex flex-wrap items-center gap-4">
                                     <div className="flex flex-col">
                                         <span className="text-xs text-primary/60 leading-none mb-1">
-                                            {doc.type === 'RECEPISE' ? 'Récépissé en attente' : 'Procès-Verbal Finalisé'}
+                                            {doc.type === 'RECEPISE' ? 'Récépissé' : 'Procès-Verbal'}
                                         </span>
-                                        <span className="text-sm md:text-base font-sans font-semibold ">{doc.reference}</span>
+                                        <span className="text-xs md:text-sm font-sans font-semibold ">{doc.reference}</span>
                                     </div>
                                     {/* <div className={cn(
                                         "px-2 py-1 rounded-md text-[10px] border flex items-center gap-1",
@@ -104,7 +104,7 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                                         {doc.status}
                                     </div> */}
                                 </div>
-                                <div className="flex flex-wrap items-center gap-6">
+                                <div className="flex flex-wrap items-center gap-2">
                                     <div className="flex items-center gap-2 text-[11px] text-text-secondary uppercase">
                                         <Car className="w-3 h-3" /> {maskPlate(doc.plateNumber)}
                                     </div>

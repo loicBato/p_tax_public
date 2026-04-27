@@ -114,14 +114,6 @@ export function ReceiptTemplate({ doc }) {
                     </ul>
                 </div>
 
-                {/* ═══ SECTION SITUATION ═══ */}
-                <SectionDivider label="SITUATION" />
-                <div className="space-y-0 px-0">
-                    <LabelValue label="DATE" value={dateFormatted} bold />
-                    <LabelValue label="INTERVENANT" value={agentId} bold />
-                    <LabelValue label="POSTE DE GARDE" value={postOfficeName} bold />
-                </div>
-
                 {/* ═══ SECTION PIÈCES RETIRÉES ═══ */}
                 {!isVehicleWithdrawn && (
                     <>
@@ -137,6 +129,14 @@ export function ReceiptTemplate({ doc }) {
                         </div>
                     </>
                 )}
+
+                {/* ═══ SECTION SITUATION ═══ */}
+                <SectionDivider label="SITUATION" />
+                <div className="space-y-0 px-0">
+                    <LabelValue label="DATE" value={dateFormatted} bold />
+                    <LabelValue label="INTERVENANT" value={agentId} bold />
+                    <LabelValue label="POSTE DE GARDE" value={postOfficeName} bold />
+                </div>
 
                 {/* ═══ CONDITIONS DE RESTITUTION ═══ */}
                 <div className="pt-4 mt-10">

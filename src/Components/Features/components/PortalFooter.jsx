@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/police.jpeg';
+import logo from '../../assets/police.jpg';
 
 export function PortalFooter() {
     return (

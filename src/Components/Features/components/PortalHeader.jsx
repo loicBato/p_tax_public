@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiShield as Shield, FiInfo as Info } from 'react-icons/fi';
-import logo from "../../assets/police.jpeg";
+import logo from "../../assets/police.jpg";
 
 export function PortalHeader() {
     return (

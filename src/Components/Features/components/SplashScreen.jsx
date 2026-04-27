@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FiShield as Shield } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from "../../assets/police.jpeg";
+import logo from "../../assets/police1.jpg";
 
 export function SplashScreen({ onComplete }) {
     const [isVisible, setIsVisible] = useState(true);

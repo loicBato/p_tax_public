@@ -4,9 +4,11 @@ import { AnimatePresence } from 'framer-motion';
 import { PortalHeader } from '../Components/Features/components/PortalHeader';
 import { PortalFooter } from '../Components/Features/components/PortalFooter';
 import { SplashScreen } from '../Components/Features/components/SplashScreen';
+import { useBlockCopy } from '../Components/Features/hooks/useBlockCopy';
 
 export default function MainLayout() {
     const [showSplash, setShowSplash] = React.useState(true);
+    useBlockCopy();
 
     return (
         <div className="min-h-screen bg-app-bg text-text-main font-sans flex flex-col">
