@@ -70,7 +70,7 @@ export function ReceiptTemplate({ doc }) {
                         REPUBLIQUE TOGOLAISE
                     </div>
                     <div className="text-center text-[10px] uppercase my-1">
-                        TRAVAIL-LIBERTE-PATRIE
+                        TRAVAIL - LIBERTE - PATRIE
                     </div>
                     <div className="w-[120px] border-t border-dashed border-[#000000] my-1"></div>
                     <div className="text-center text-[11px] uppercase my-1">
@@ -140,7 +140,7 @@ export function ReceiptTemplate({ doc }) {
 
                 {/* ═══ CONDITIONS DE RESTITUTION ═══ */}
                 <div className="pt-4 mt-10">
-                    <div className="border border-[#000000] p-3 rounded-lg">
+                    <div className="border border-[#000000] p-3">
                         <div className="text-[13px] text-justify leading-relaxed">
                             <span className="font-bold">Conditions de restitution :</span><br />
                             Le contrevenant reconnaît avoir commis les infractions constatées
@@ -174,9 +174,9 @@ export function ReceiptTemplate({ doc }) {
 function SectionDivider({ label }) {
     return (
         <div className="flex items-center gap-3 my-2">
-            <div className="flex-1 border-t border-[#000000]"></div>
-            <span className="text-[13px] font-semibold shrink-0 m-0">{label}</span>
-            <div className="flex-1 border-t border-[#000000]"></div>
+            <div className="flex-1 border-t border-[#d1d5db]"></div>
+            <span className="text-[13px] text-[#4b5563] font-semibold shrink-0 m-0">{label}</span>
+            <div className="flex-1 border-t border-[#d1d5db]"></div>
         </div>
     );
 }

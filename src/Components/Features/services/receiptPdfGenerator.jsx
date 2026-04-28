@@ -30,8 +30,9 @@ export const downloadReceiptPdf = async (doc) => {
         const canvas = await html2canvas(element, {
             scale: 2,
             useCORS: true,
-            logging: false,
-            backgroundColor: '#ffffff',
+            backgroundColor: "#ffffff",
+            letterRendering: true,
+            foreignObjectRendering: false
         });
 
         const imgData = canvas.toDataURL('image/png');

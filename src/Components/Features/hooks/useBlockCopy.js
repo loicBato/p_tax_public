@@ -21,18 +21,18 @@ export function useBlockCopy() {
             }
         };
 
-        document.addEventListener('copy', blockAction);
-        document.addEventListener('paste', blockAction);
-        document.addEventListener('cut', blockAction);
-        document.addEventListener('contextmenu', blockAction);  // clic droit
-        document.addEventListener('keydown', blockKeyboard);
+        // document.addEventListener('copy', blockAction);
+        // // document.addEventListener('paste', blockAction);
+        // document.addEventListener('cut', blockAction);
+        // // document.addEventListener('contextmenu', blockAction); 
+        // document.addEventListener('keydown', blockKeyboard);
 
         return () => {
-            document.removeEventListener('copy', blockAction);
-            document.removeEventListener('paste', blockAction);
-            document.removeEventListener('cut', blockAction);
-            document.removeEventListener('contextmenu', blockAction);
-            document.removeEventListener('keydown', blockKeyboard);
+            // document.removeEventListener('copy', blockAction);
+            // // document.removeEventListener('paste', blockAction);
+            // document.removeEventListener('cut', blockAction);
+            // // document.removeEventListener('contextmenu', blockAction);
+            // document.removeEventListener('keydown', blockKeyboard);
         };
     }, []);
 }

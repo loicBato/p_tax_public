@@ -6,7 +6,7 @@ export function usePortal() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isSearching, setIsSearching] = useState(false);
     const [results, setResults] = useState([]);
-    
+
     const [selectedDoc, setSelectedDoc] = useState(null);
     const [pendingDoc, setPendingDoc] = useState(null);
     const [showPlateModal, setShowPlateModal] = useState(false);
