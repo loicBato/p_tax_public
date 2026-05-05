@@ -27,8 +27,8 @@ export function PlateVerificationModal({
     onVerify,
 }) {
     return (
-        <Dialog 
-            open={isOpen} 
+        <Dialog
+            open={isOpen}
             onClose={onClose}
             maxWidth="xs"
             fullWidth
@@ -56,11 +56,11 @@ export function PlateVerificationModal({
                 <Avatar sx={{ width: 44, height: 44, bgcolor: 'primary.light', mx: 'auto', mb: 1.5 }}>
                     <Car size={22} color="white" />
                 </Avatar>
-                
+
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                     Vérification du Véhicule
                 </Typography>
-                
+
                 <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
                     Veuillez saisir le numéro de plaque d'immatriculation associé au document <Box component="span" sx={{ fontWeight: 800, color: 'primary.main' }}>{pendingDoc?.reference}</Box> pour y accéder.
                 </Typography>
@@ -74,6 +74,7 @@ export function PlateVerificationModal({
                             <TextField
                                 fullWidth
                                 autoFocus
+
                                 placeholder="1234AB"
                                 value={plateInput}
                                 onChange={(e) => setPlateInput(e.target.value)}
@@ -120,13 +121,13 @@ export function PlateVerificationModal({
                             Vérifier et Accéder
                         </Button>
 
-                        <Paper 
-                            elevation={0} 
-                            sx={{ 
-                                p: 1.5, 
-                                bgcolor: 'grey.50', 
-                                borderRadius: 1.5, 
-                                border: '1px solid', 
+                        <Paper
+                            elevation={0}
+                            sx={{
+                                p: 1.5,
+                                bgcolor: 'grey.50',
+                                borderRadius: 1.5,
+                                border: '1px solid',
                                 borderColor: 'divider',
                                 display: 'flex',
                                 gap: 1.2,

@@ -177,12 +177,19 @@ export function HomeView({ onSearch, isSearching }) {
                         <Typography variant="overline" sx={{ fontWeight: 800, color: 'text.secondary', display: 'block', mb: 1, letterSpacing: 1.2, fontSize: '0.65rem' }}>
                             Mode de recherche
                         </Typography>
-                        <Grid container spacing={2}>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, width: '100%' }}>
                             {MODES.map((m) => (
-                                <Grid item xs={12} sm={m.val === 'scan' ? 12 : 6} key={m.val} sx={{ display: m.classname === 'md:hidden' ? { xs: 'block', md: 'none' } : 'block' }}>
+                                <Box
+                                    key={m.val}
+                                    sx={{
+                                        display: m.classname === 'md:hidden' ? { xs: 'flex', md: 'none' } : 'flex',
+                                        flex: m.val === 'scan' ? '1 1 100%' : { xs: '1 1 100%', sm: '1 1 calc(50% - 8px)' },
+                                    }}
+                                >
                                     <Card
                                         variant="outlined"
                                         sx={{
+                                            width: '100%',
                                             borderRadius: 3,
                                             transition: 'all 0.2s',
                                             borderColor: mode === m.val ? 'primary.main' : 'divider',
@@ -233,9 +240,9 @@ export function HomeView({ onSearch, isSearching }) {
                                             </CardContent>
                                         </CardActionArea>
                                     </Card>
-                                </Grid>
+                                </Box>
                             ))}
-                        </Grid>
+                        </Box>
                     </Box>
 
                     {/* Contenu dynamique */}
@@ -295,8 +302,8 @@ export function HomeView({ onSearch, isSearching }) {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                             >
-                                <Box sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 4 }}>
-                                    <Stepper activeStep={advStep - 1} alternativeLabel sx={{ mb: 5 }}>
+                                <Box sx={{ borderTop: '1px solid', borderColor: 'divider', pt: 2 }}>
+                                    <Stepper activeStep={advStep - 1} alternativeLabel sx={{ mb: 3 }}>
                                         {['Engin', 'Document', 'Critère'].map((label) => (
                                             <Step key={label}>
                                                 <StepLabel>{label}</StepLabel>
@@ -310,35 +317,40 @@ export function HomeView({ onSearch, isSearching }) {
                                             {advStep === 1 && (
                                                 <motion.div key="a1" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
                                                     <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 'bold' }}>Quel type d'engin ?</Typography>
-                                                    <Grid container spacing={2}>
+                                                    <Box sx={{
+                                                        display: 'grid',
+                                                        gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' },
+                                                        gap: 2,
+                                                        width: '100%'
+                                                    }}>
                                                         {ENGINS.map((e) => (
-                                                            <Grid item xs={6} sm={3} key={e.val}>
-                                                                <Button
-                                                                    fullWidth
-                                                                    variant="outlined"
-                                                                    onClick={() => handleSelectEngin(e.val)}
-                                                                    sx={{
-                                                                        flexDirection: 'column',
-                                                                        p: 2,
-                                                                        borderRadius: 3,
-                                                                        borderColor: engin === e.val ? 'primary.main' : 'divider',
-                                                                        borderWidth: engin === e.val ? 2 : 1,
-                                                                        bgcolor: engin === e.val ? 'primary.main' : 'white',
-                                                                        color: engin === e.val ? 'white' : 'text.primary',
-                                                                        '&:hover': {
-                                                                            borderColor: 'primary.main',
-                                                                            bgcolor: engin === e.val ? 'primary.main' : 'rgba(0,0,0,0.02)'
-                                                                        },
-                                                                        textTransform: 'none'
-                                                                    }}
-                                                                >
-                                                                    <Box sx={{ fontSize: '1.5rem', mb: 1 }}>{e.icon}</Box>
-                                                                    <Typography variant="caption" sx={{ fontWeight: 'bold' }}>{e.label}</Typography>
-                                                                    <Typography variant="caption" sx={{ opacity: 0.7 }}>{e.sub}</Typography>
-                                                                </Button>
-                                                            </Grid>
+                                                            <Button
+                                                                key={e.val}
+                                                                fullWidth
+                                                                variant="outlined"
+                                                                onClick={() => handleSelectEngin(e.val)}
+                                                                sx={{
+                                                                    flexDirection: 'column',
+                                                                    p: 2,
+                                                                    borderRadius: 3,
+                                                                    borderColor: engin === e.val ? 'primary.main' : 'divider',
+                                                                    borderWidth: engin === e.val ? 2 : 1,
+                                                                    bgcolor: engin === e.val ? 'primary.main' : 'white',
+                                                                    color: engin === e.val ? 'white' : 'text.primary',
+                                                                    height: '100%',
+                                                                    '&:hover': {
+                                                                        borderColor: 'primary.main',
+                                                                        bgcolor: engin === e.val ? 'primary.main' : 'rgba(0,0,0,0.02)'
+                                                                    },
+                                                                    textTransform: 'none'
+                                                                }}
+                                                            >
+                                                                <Box sx={{ fontSize: '1.5rem', mb: 1 }}>{e.icon}</Box>
+                                                                <Typography variant="caption" sx={{ fontWeight: 'bold' }}>{e.label}</Typography>
+                                                                <Typography variant="caption" sx={{ opacity: 0.7 }}>{e.sub}</Typography>
+                                                            </Button>
                                                         ))}
-                                                    </Grid>
+                                                    </Box>
                                                 </motion.div>
                                             )}
 
@@ -395,6 +407,7 @@ export function HomeView({ onSearch, isSearching }) {
                                                         <TextField
                                                             fullWidth
                                                             placeholder="Plaque / châssis"
+                                                            size="small"
                                                             value={searchTerm}
                                                             onChange={(e) => setSearchTerm(e.target.value)}
                                                             variant="outlined"
@@ -412,10 +425,10 @@ export function HomeView({ onSearch, isSearching }) {
                                                             variant="contained"
                                                             disabled={isSearching || !searchTerm.trim()}
                                                             sx={{
-                                                                borderRadius: 2.5,
-                                                                px: 4,
-                                                                py: 1.5,
-                                                                fontWeight: 'bold',
+                                                                borderRadius: 1.5,
+                                                                px: 3,
+                                                                py: 1,
+                                                                fontSize: '0.85rem',
                                                                 textTransform: 'none',
                                                                 boxShadow: 0,
                                                                 '&:hover': { boxShadow: 0 }

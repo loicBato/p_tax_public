@@ -1,10 +1,10 @@
 import React from 'react';
-import { 
-    FiChevronLeft as ChevronLeft, 
-    FiSearch as Search, 
-    FiInfo as Info, 
-    FiClock as Clock, 
-    FiChevronRight as ChevronRight 
+import {
+    FiChevronLeft as ChevronLeft,
+    FiSearch as Search,
+    FiInfo as Info,
+    FiClock as Clock,
+    FiChevronRight as ChevronRight
 } from 'react-icons/fi';
 import { FaStamp as Stamp, FaGavel as Gavel, FaCar as Car } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -25,6 +25,7 @@ import {
     Divider,
     Avatar
 } from '@mui/material';
+import { BiCalendar } from 'react-icons/bi';
 
 /**
  * Masque un nom : "LHADJO GTOKOU" → "LH**** GT****"
@@ -179,7 +180,7 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                                             <Typography variant="subtitle2" sx={{ fontWeight: 800, mb: 0.5 }}>
                                                 {doc.reference}
                                             </Typography>
-                                            
+
                                             <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', gap: 1 }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                     <Car size={14} color="#8595A6" />
@@ -187,31 +188,31 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                                                         {maskPlate(doc.plateNumber)}
                                                     </Typography>
                                                 </Box>
-                                                <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+                                                {/* <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                     <User size={14} color="#8595A6" />
                                                     <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
                                                         {maskName(doc.citizenName || doc.ownerName)}
                                                     </Typography>
-                                                </Box>
+                                                </Box> */}
                                                 <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                                    <Clock size={14} color="#8595A6" />
+                                                    <BiCalendar size={14} color="#8595A6" />
                                                     <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
-                                                        {moment(doc.date).format('DD/MM/YYYY HH:mm')}
+                                                        {moment(doc.date).format('DD/MM/YYYY')}
                                                     </Typography>
                                                 </Box>
                                             </Stack>
                                         </Box>
 
                                         {/* Actions/Amount */}
-                                        <Box sx={{ 
-                                            display: 'flex', 
-                                            alignItems: 'center', 
-                                            gap: 2, 
-                                            pl: { xs: 0, md: 2 }, 
-                                            borderLeft: { xs: 'none', md: '1px solid' }, 
-                                            borderColor: 'divider' 
+                                        <Box sx={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: 2,
+                                            pl: { xs: 0, md: 2 },
+                                            borderLeft: { xs: 'none', md: '1px solid' },
+                                            borderColor: 'divider'
                                         }}>
                                             {doc?.type === 'PROCES_VERBAL' && (
                                                 <Box sx={{ textAlign: 'right', display: { xs: 'none', sm: 'block' } }}>

@@ -46,23 +46,25 @@ export function SplashScreen({ onComplete }) {
                     }}
                 >
                     {/* Decorative Pattern overlay */}
-                    <Box sx={{
+                    {/* <Box sx={{
                         position: 'absolute',
                         inset: 0,
                         opacity: 0.05,
                         pointerEvents: 'none',
                         background: 'radial-gradient(#fff 1px, transparent 1px)',
                         backgroundSize: '20px 20px'
-                    }} />
+                    }} /> */}
 
                     <Stack spacing={4} alignItems="center" sx={{ position: 'relative', zIndex: 10 }}>
-                        <motion.div
+                        <Box
+                            component={motion.div}
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
                         >
                             {/* Logo Area */}
-                            <Box sx={{ position: 'relative', mb: 2 }}>
+                            <Box sx={{ position: 'relative', mb: 2, display: 'flex', justifyContent: 'center' }}>
                                 <motion.div
                                     initial={{ rotate: -10, opacity: 0 }}
                                     animate={{ rotate: 0, opacity: 1 }}
@@ -74,6 +76,7 @@ export function SplashScreen({ onComplete }) {
                                         sx={{
                                             width: 100,
                                             height: 100,
+                                            mx: 'auto',
                                             borderRadius: 4,
                                             boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
                                             bgcolor: 'white'
@@ -82,7 +85,8 @@ export function SplashScreen({ onComplete }) {
                                 </motion.div>
                                 <Box sx={{ position: 'absolute', inset: 0, bgcolor: 'white', opacity: 0.2, filter: 'blur(30px)', transform: 'scale(1.5)', zIndex: -1 }} />
                             </Box>
-                        </motion.div>
+                        </Box>
+
 
                         {/* Text Area */}
                         <Box
@@ -92,7 +96,7 @@ export function SplashScreen({ onComplete }) {
                             transition={{ duration: 0.8, delay: 0.8 }}
                             sx={{ textAlign: 'center' }}
                         >
-                            <Typography variant="h2" sx={{ color: 'white', fontWeight: 900, textTransform: 'uppercase', letterSpacing: -2, lineHeight: 1, mb: 1 }}>
+                            <Typography variant="h4" sx={{ color: 'white', fontWeight: 900, textTransform: 'uppercase', letterSpacing: -2, lineHeight: 1, mb: 1 }}>
                                 P-Tax <Box component="span" sx={{ opacity: 0.6 }}>Togo</Box>
                             </Typography>
                             <Typography variant="overline" sx={{ color: 'white', opacity: 0.5, letterSpacing: 5, fontWeight: 700 }}>
@@ -101,20 +105,20 @@ export function SplashScreen({ onComplete }) {
                         </Box>
 
                         {/* Progress Indicator */}
-                        <Box sx={{ width: 200, mt: 4 }}>
+                        <Box sx={{ mt: 4 }}>
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1 }}
                             >
-                                <LinearProgress 
-                                    variant="indeterminate" 
-                                    sx={{ 
-                                        height: 4, 
-                                        borderRadius: 2, 
+                                <LinearProgress
+                                    variant="indeterminate"
+                                    sx={{
+                                        height: 4,
+                                        borderRadius: 2,
                                         bgcolor: 'rgba(255,255,255,0.1)',
                                         '& .MuiLinearProgress-bar': { bgcolor: 'white', opacity: 0.6 }
-                                    }} 
+                                    }}
                                 />
                             </motion.div>
                         </Box>

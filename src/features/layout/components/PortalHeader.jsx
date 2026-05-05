@@ -123,7 +123,7 @@ export function PortalHeader(props) {
                                     FAQ
                                 </Button>
                             </Stack>
-                            
+
                             <Box sx={{ width: 1, height: 32, bgcolor: 'divider' }} />
 
                             <Chip
@@ -132,20 +132,22 @@ export function PortalHeader(props) {
                                 sx={{
                                     bgcolor: 'grey.50',
                                     border: '1px solid',
+                                    px: 1,
+                                    borderRadius: 1.5,
                                     borderColor: 'divider',
                                     fontWeight: 800,
                                     textTransform: 'uppercase',
                                     letterSpacing: 1.2,
                                     fontSize: '10px',
                                     color: 'text.secondary',
-                                    '& .MuiChip-label': { px: 2 },
+                                    '& .MuiChip-label': { px: 1 },
                                     '&::before': {
                                         content: '""',
                                         width: 8,
                                         height: 8,
                                         bgcolor: 'success.main',
                                         borderRadius: '50%',
-                                        mr: 1,
+                                        mr: 0,
                                         animation: 'pulse 2s infinite'
                                     },
                                     '@keyframes pulse': {
