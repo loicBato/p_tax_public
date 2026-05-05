@@ -56,7 +56,7 @@ export function DetailView({ doc, onBack }) {
                                     {doc.type === 'RECEPISE' ? (doc.withdrawnDocs?.vehicle ? "Récépissé de retrait d'engin" : "Récépissé de retrait de pièces") : 'Procès-Verbal Matérialisant le Paiement'}
                                 </span>
                             </div>
-                            <h2 className="text-sm md:text-2xl font-sans font-semibold mb-3 leading-none tracking-tight">{doc.reference}</h2>
+                            <h2 className="text-sm md:text-xl font-sans font-semibold mb-3 leading-none tracking-tight">{doc.reference}</h2>
                             <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-widest opacity-90 px-4 py-2 bg-white/10 rounded-xl w-fit backdrop-blur-md">
                                 <Car className="w-4 h-4" /> {doc.plateNumber || doc.chassis}
                             </div>

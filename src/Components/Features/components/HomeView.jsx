@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { FiArrowRight as ArrowRight, FiChevronLeft as ChevronLeft, FiSearch as Search } from 'react-icons/fi';
+import { FiArrowRight as ArrowRight, FiChevronLeft as ChevronLeft, FiSearch as Search, FiCamera as Camera } from 'react-icons/fi';
 import { FaBus, FaCar, FaMotorcycle, FaTruck, FaShieldAlt as ShieldCheck } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LuFileText, LuScrollText } from 'react-icons/lu';
 import { VscReferences } from 'react-icons/vsc';
 import { CgPassword } from 'react-icons/cg';
+import { useOcr } from '../hooks/useOcr';
+import { IoScanSharp } from 'react-icons/io5';
 
 const ENGINS = [
     { val: 'voiture', label: 'Véhicule léger', sub: 'Voitures', icon: <FaCar /> },
@@ -20,37 +22,48 @@ const DOCS = [
 
 const MODES = [
     {
-        val: 'ref',
-        label: 'Par référence',
-        sub: 'Accès direct, résultat unique',
-        iconBg: 'bg-blue-50',
-        icon: <VscReferences />,
+        val: 'scan',
+        label: 'Prendre une photo',
+        sub: 'Piece d\'Identité',
+        iconBg: 'bg-green-50',
+        classname: 'md:hidden',
+        icon: <IoScanSharp />,
     },
     {
         val: 'adv',
         label: 'Par plaque / châssis',
-        sub: 'Filtrer par engin et document',
+        sub: 'AZxxxx / xxxxxxxxxxxxxxxx',
         iconBg: 'bg-amber-50',
         icon: <CgPassword />,
     },
+
+    {
+        val: 'ref',
+        label: 'N° Récépissé / PV',
+        sub: 'WRxxxxxxx / PYxxxxxxxxxxx',
+        iconBg: 'bg-blue-50',
+        icon: <VscReferences />,
+    },
+
 ];
 
-function StepPill({ label, status }) {
-    const base = 'text-[11px] font-semibold px-3 py-1 rounded-full border transition-all';
-    const styles = {
-        active: 'bg-blue-50 text-blue-700 border-blue-300',
-        done: 'bg-green-50 text-green-700 border-green-300',
-        idle: 'bg-surface text-text-secondary border-divider',
-    };
-    return <span className={`${base} ${styles[status]}`}>{label}</span>;
+function StepPill({ step, label, status }) {
+    const isDone = status === 'done';
+    const isActive = status === 'active';
+
+    return (
+        <div className={`flex items-center gap-2 transition-all ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+            <div className={`w-6 h-6 flex items-center justify-center rounded-full text-[11px] font-bold border-2 
+                ${isDone ? 'bg-primary border-primary text-white' : isActive ? 'bg-white border-primary text-primary' : 'bg-surface border-divider text-text-secondary'}`}>
+                {step}
+            </div>
+            <span className={`text-[13px] hidden sm:block ${isActive ? 'text-text-title' : 'text-text-secondary'}`}>{label}</span>
+        </div>
+    );
 }
 
-function Chevron() {
-    return (
-        <svg width="10" height="10" viewBox="0 0 16 16" fill="none">
-            <path d="M5 3l6 5-6 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-    );
+function StepDivider({ active }) {
+    return <div className={`h-[2px] w-6 sm:w-15 rounded-full transition-all ${active ? 'bg-primary' : 'bg-divider'}`} />;
 }
 
 export function HomeView({ onSearch, isSearching }) {
@@ -60,6 +73,14 @@ export function HomeView({ onSearch, isSearching }) {
     const [docType, setDocType] = useState(null);
     const [reference, setReference] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
+
+    // OCR : reconnaissance de texte depuis une photo
+    const ocr = useOcr();
+
+    // Lancer le scan OCR directement puis rechercher
+    const handleOcrScan = () => {
+        ocr.openCapture();
+    };
 
     const handleSelectMode = (val) => {
         setMode(val);
@@ -137,15 +158,25 @@ export function HomeView({ onSearch, isSearching }) {
                         {MODES.map((m) => (
                             <button
                                 key={m.val}
-                                onClick={() => handleSelectMode(m.val)}
-                                className={`flex items-center gap-3 p-2 rounded-xl border text-left transition-all cursor-pointer
+                                onClick={() => {
+                                    if (m.val === 'scan') {
+                                        handleOcrScan();
+                                    } else {
+                                        handleSelectMode(m.val);
+                                    }
+                                }}
+                                className={`flex items-center gap-3 p-2 rounded-xl border text-left transition-all cursor-pointer ${m.classname}
                   ${mode === m.val
                                         ? 'border-primary border-2 bg-primary/5'
                                         : 'border-divider bg-white hover:border-primary/40 hover:bg-surface'
                                     }`}
                             >
                                 <div className={`w-9 h-9 rounded-lg ${m.iconBg} flex items-center justify-center flex-shrink-0`}>
-                                    {m.icon}
+                                    {ocr.isProcessing && m.val === 'scan' ? (
+                                        <div className="w-4 h-4 border-2 border-green-600/30 border-t-green-600 rounded-full animate-spin" />
+                                    ) : (
+                                        m.icon
+                                    )}
                                 </div>
                                 <div>
                                     <p className={`text-[13px] font-semibold ${mode === m.val ? 'text-primary' : 'text-text-title'}`}>
@@ -171,14 +202,14 @@ export function HomeView({ onSearch, isSearching }) {
                         >
                             <div className="border-t border-divider pt-5">
                                 <p className="text-sm text-text-secondary mb-3">
-                                    Saisissez le numéro de référence.
+                                    Saisissez le numéro de récépissé ou du procès verbal
                                 </p>
                                 <form onSubmit={handleSearchRef} className="flex flex-col sm:flex-row gap-3 mb-2">
                                     <div className="relative flex-1">
                                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary w-4 h-4" />
                                         <input
                                             type="text"
-                                            placeholder="Ex: REC-2024-001 · PV-2024-992"
+                                            placeholder="WRxxxxxxxxx ou PYxxxxxxxxx"
                                             className="w-full pl-9 pr-3 py-3 border border-divider rounded-lg text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
                                             value={reference}
                                             onChange={(e) => setReference(e.target.value)}
@@ -210,12 +241,12 @@ export function HomeView({ onSearch, isSearching }) {
                             <div className="border-t border-divider pt-3">
 
                                 {/* Breadcrumb */}
-                                <div className="flex items-center gap-2 mb-5 flex-wrap">
-                                    <StepPill label="1 · Engin" status={pillStatus(1)} />
-                                    <Chevron />
-                                    <StepPill label="2 · Document" status={pillStatus(2)} />
-                                    <Chevron />
-                                    <StepPill label="3 · Critère" status={pillStatus(3)} />
+                                <div className="flex items-center gap-3 mb-6 w-full justify-center">
+                                    <StepPill step="1" label="Engin" status={pillStatus(1)} />
+                                    <StepDivider active={advStep > 1} />
+                                    <StepPill step="2" label="Document" status={pillStatus(2)} />
+                                    <StepDivider active={advStep > 2} />
+                                    <StepPill step="3" label="Critère" status={pillStatus(3)} />
                                 </div>
 
                                 <AnimatePresence mode="wait">
@@ -330,6 +361,33 @@ export function HomeView({ onSearch, isSearching }) {
                     )}
 
                 </AnimatePresence>
+
+                {/* Input fichier caméra global (mode scan) */}
+                <input
+                    ref={ocr.fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => ocr.handleFileChange(e, (text) => {
+                        if (text) {
+                            if (mode === 'adv') {
+                                setSearchTerm(text);
+                            } else {
+                                setMode('ref');
+                                setReference(text);
+                            }
+                        }
+                    })}
+                />
+
+                {/* Indicateur OCR global */}
+                {ocr.isProcessing && (
+                    <div className="flex items-center justify-center gap-3 text-sm text-primary py-4 mt-2 border-t border-divider animate-pulse">
+                        <div className="w-5 h-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
+                        Analyse de l'image en cours…
+                    </div>
+                )}
             </div>
 
             {/* Cards bas */}

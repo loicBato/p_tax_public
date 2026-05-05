@@ -124,7 +124,7 @@ export function ReportPdfTemplate({ receipt }) {
 
                 {/* TEXTE PV */}
                 <div className="text-[14px] leading-relaxed text-justify my-1">
-                    Le <span className="font-bold">{formattedDate}</span> à <span className="font-bold">{heure} heure {minute}</span>, nous soussignés, agent de la DSR Maritime-Togo, posté à Lomé, avons constaté ce qui suit.
+                    Le <span className="font-bold">{formattedDate}</span> à <span className="font-bold">{heure} heure {minute}</span>, nous soussignés, <span className="font-bold">agent de la DSR Maritime-Togo</span>, posté à <span className="font-bold">Lomé</span>, avons constaté ce qui suit.
                 </div>
 
                 <div className="text-[14px] leading-relaxed text-justify">

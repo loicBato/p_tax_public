@@ -13,13 +13,29 @@ export function usePortal() {
     const [plateInput, setPlateInput] = useState('');
     const [plateError, setPlateError] = useState(false);
 
-    const handleSearch = async (e) => {
-        e?.preventDefault();
-        if (!searchQuery.trim()) return;
+    const handleSearch = async (params) => {
+        // Gérer le cas où l'appel vient d'un événement direct (fallback)
+        if (params && params.preventDefault) {
+            params.preventDefault();
+        }
 
+        let query = '';
+        let filters = {};
+
+        if (params && params.mode) {
+            // Appel depuis HomeView
+            query = params.mode === 'ref' ? params.reference : (params.plaque || params.chassis);
+            filters = { docType: params.docType, vehicleType: params.engin };
+        } else {
+            query = searchQuery;
+        }
+
+        if (!query || !query.trim()) return;
+
+        setSearchQuery(query.trim());
         setIsSearching(true);
         try {
-            const foundDocs = await searchDocuments(searchQuery);
+            const foundDocs = await searchDocuments(query.trim(), filters);
             setResults(foundDocs);
             setView('RESULTS');
         } catch (error) {

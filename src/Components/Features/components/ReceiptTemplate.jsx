@@ -96,7 +96,7 @@ export function ReceiptTemplate({ doc }) {
                 <SectionDivider label="ENGIN" />
                 <div className="space-y-0 px-0">
                     <LabelValue label={plate ? "IMMATRICULATION" : "CHASSIS"} value={plate || chassis} bold />
-                    <LabelValue label="PROPRIETAIRE / CONDUCTEUR" value={offenderName} bold />
+                    {/* <LabelValue label="PROPRIETAIRE / CONDUCTEUR" value={offenderName} bold /> */}
                     <LabelValue label="CONTACT" value={formatPhoneNumber(offenderPhone)} bold />
                 </div>
 
