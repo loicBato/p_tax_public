@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import MainLayout from '../Layout/MainLayout';
-import HomePage from '../Components/Features/pages/homePage/HomePage';
-import ResultsPage from '../Components/Features/pages/resultsPage/ResultsPage';
-import { DocumentDetailPage } from '../Components/Features/pages/documentDetail/DocumentDetailPage';
-import AssistancePage from '../Components/Features/pages/assistancePage/AssistancePage';
-import FaqPage from '../Components/Features/pages/faqPage/FaqPage';
+import MainLayout from '../features/layout/MainLayout';
+import HomePage from '../features/documents/pages/HomePage';
+import ResultsPage from '../features/documents/pages/ResultsPage';
+import { DocumentDetailPage } from '../features/documents/pages/DocumentDetailPage';
+import AssistancePage from '../features/assistance/pages/AssistancePage';
+import FaqPage from '../features/faq/pages/FaqPage';
 
 const Router = () => {
     return (
