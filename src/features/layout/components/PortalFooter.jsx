@@ -9,6 +9,7 @@ import {
     Stack,
     Divider
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export function PortalFooter() {
     return (
@@ -16,8 +17,8 @@ export function PortalFooter() {
             <Container maxWidth="lg">
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
                     {/* Logo & Title */}
-                    <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
-                        <Avatar src={logo} sx={{ width: 32, height: 32 }} />
+                    <Stack direction="row" spacing={0.5} sx={{ mb: 2, alignItems: 'center' }}>
+                        <Avatar src={logo} sx={{ width: 38, height: 38 }} />
                         <Box sx={{ textAlign: 'left' }}>
                             <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', lineHeight: 1 }}>
                                 P-Tax Togo
@@ -45,6 +46,31 @@ export function PortalFooter() {
                             "La sécurité est un devoir partagé. Ce portail s'inscrit dans la modernisation des services du Ministère de la Sécurité et de la Protection Civile, pour plus de transparence et de proximité avec le citoyen."
                         </Typography>
                     </Paper>
+
+                    {/* Quick Links */}
+                    <Stack
+                        direction="row"
+                        spacing={3}
+                        sx={{
+                            mb: 3,
+                            flexWrap: 'wrap',
+                            justifyContent: 'center',
+                            '& a': {
+                                textDecoration: 'none',
+                                color: 'text.secondary',
+                                fontSize: '0.85rem',
+                                fontWeight: 700,
+                                transition: 'color 0.2s',
+                                '&:hover': { color: 'primary.main' }
+                            }
+                        }}
+                    >
+                        <Link to="/">Accueil</Link>
+                        <Link to="/assistance">Assistance</Link>
+                        <Link to="/faq">FAQ</Link>
+                    </Stack>
+
+                    <Divider sx={{ width: '100%', mb: 3, opacity: 0.5 }} />
 
                     {/* Copyright */}
                     <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 500, opacity: 0.6 }}>

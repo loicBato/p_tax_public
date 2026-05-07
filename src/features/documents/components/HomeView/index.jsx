@@ -15,7 +15,7 @@ import { SearchDrawer } from './SearchDrawer';
 
 export function HomeView({ onSearch, isSearching }) {
     const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const [mode, setMode] = useState(null);
     const [engin, setEngin] = useState(null);
@@ -111,7 +111,7 @@ export function HomeView({ onSearch, isSearching }) {
                             bgcolor: 'background.paper',
                             boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
                         }}>
-                            <img src={illustration} alt="" sx={{ maxWidth: '100%' }} />
+                            <img src={illustration} alt="" sx={{ maxWidth: '100%', borderRadius: 3 }} />
                         </Box>
                     )}
 

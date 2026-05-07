@@ -6,36 +6,41 @@ import ResultsPage from '../features/documents/pages/ResultsPage';
 import { DocumentDetailPage } from '../features/documents/pages/DocumentDetailPage';
 import AssistancePage from '../features/assistance/pages/AssistancePage';
 import FaqPage from '../features/faq/pages/FaqPage';
+import LoginPage from '../features/auth/pages/LoginPage';
+import { PrivateRoute } from './PrivateRoute';
 
 const Router = () => {
     return (
         <Routes>
-            {/* Layout principal avec Header + Footer */}
-            <Route element={<MainLayout />}>
+            {/* ── Routes publiques (pas de auth requise) ── */}
+            <Route path="/login" element={<LoginPage />} />
 
-                {/* Page d'accueil - Recherche */}
-                <Route path="/" element={<HomePage />} />
+            {/* ── Routes protégées (auth vérifiée requise) ── */}
+            <Route element={<PrivateRoute />}>
+                <Route element={<MainLayout />}>
 
-                {/* Page des résultats de recherche */}
-                <Route path="/results" element={<ResultsPage />} />
+                    {/* Page d'accueil - Recherche */}
+                    <Route path="/" element={<HomePage />} />
 
-                {/* ===== Liens directs envoyés par SMS ===== */}
+                    {/* Page des résultats */}
+                    <Route path="/results" element={<ResultsPage />} />
 
-                {/* Accès direct à un récépissé (ex: /recepisse/WR2604AA00052) */}
-                <Route path="/recepisse/:ref" element={<DocumentDetailPage />} />
+                    {/* Accès direct à un récépissé */}
+                    <Route path="/recepisse/:ref" element={<DocumentDetailPage />} />
 
-                {/* Accès direct à un procès-verbal (ex: /proces-verbal/PV2604XX00001) */}
-                <Route path="/proces-verbal/:ref" element={<DocumentDetailPage />} />
+                    {/* Accès direct à un procès-verbal */}
+                    <Route path="/proces-verbal/:ref" element={<DocumentDetailPage />} />
 
-                {/* ===== Route générique de détail document ===== */}
-                <Route path="/document/:ref" element={<DocumentDetailPage />} />
+                    {/* Route générique de détail document */}
+                    <Route path="/document/:ref" element={<DocumentDetailPage />} />
 
-                {/* Page d'assistance */}
-                <Route path="/assistance" element={<AssistancePage />} />
+                    {/* Page d'assistance */}
+                    <Route path="/assistance" element={<AssistancePage />} />
 
-                {/* Page FAQ */}
-                <Route path="/faq" element={<FaqPage />} />
+                    {/* Page FAQ */}
+                    <Route path="/faq" element={<FaqPage />} />
 
+                </Route>
             </Route>
 
             {/* Redirection par défaut */}

@@ -10,8 +10,16 @@ import {
     Stack,
     Chip,
     Avatar,
+    IconButton,
+    Drawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
     useScrollTrigger
 } from '@mui/material';
+import { FiMenu, FiX, FiHelpCircle, FiMessageCircle, FiHome } from 'react-icons/fi';
 import logo from "../../../assets/police.JPG";
 
 function ElevationScroll(props) {
@@ -34,6 +42,76 @@ function ElevationScroll(props) {
 }
 
 export function PortalHeader(props) {
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    const navItems = [
+        { label: 'Accueil', path: '/', icon: <FiHome size={20} /> },
+        { label: 'Assistance', path: '/assistance', icon: <FiMessageCircle size={20} /> },
+        { label: 'FAQ', path: '/faq', icon: <FiHelpCircle size={20} /> },
+    ];
+
+    const drawer = (
+        <Box sx={{ width: 280, p: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 4 }}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 900, textTransform: 'uppercase', letterSpacing: -0.5 }}>
+                    Menu
+                </Typography>
+                <IconButton onClick={handleDrawerToggle} color="inherit">
+                    <FiX />
+                </IconButton>
+            </Box>
+
+            <List disablePadding>
+                {navItems.map((item) => (
+                    <ListItem key={item.label} disablePadding sx={{ mb: 1 }}>
+                        <ListItemButton
+                            component={Link}
+                            to={item.path}
+                            onClick={handleDrawerToggle}
+                            sx={{
+                                borderRadius: 3,
+                                py: 1.5,
+                                '&:hover': { bgcolor: 'primary.50', color: 'primary.main' },
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
+                                {item.icon}
+                            </ListItemIcon>
+                            <ListItemText
+                                primary={item.label}
+                                slotProps={{
+                                    primary: {
+                                        sx: { fontWeight: 700, fontSize: '0.95rem' }
+                                    }
+                                }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+
+            <Box sx={{ mt: 4, pt: 4, borderTop: '1px solid', borderColor: 'divider', textAlign: 'center' }}>
+                <Chip
+                    label="Portail Public"
+                    size="small"
+                    sx={{
+                        fontWeight: 800,
+                        borderRadius: 1.5,
+                        textTransform: 'uppercase',
+                        letterSpacing: 1,
+                        fontSize: '10px',
+                        bgcolor: 'grey.100'
+                    }}
+                />
+            </Box>
+        </Box>
+    );
+
     return (
         <ElevationScroll {...props}>
             <AppBar position="sticky" color="inherit">
@@ -46,7 +124,7 @@ export function PortalHeader(props) {
                             sx={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 2,
+                                gap: 0.5,
                                 textDecoration: 'none',
                                 color: 'inherit',
                                 '&:hover h1': { color: 'primary.main' },
@@ -57,8 +135,8 @@ export function PortalHeader(props) {
                                 src={logo}
                                 variant="rounded"
                                 sx={{
-                                    width: 36,
-                                    height: 36,
+                                    width: 40,
+                                    height: 40,
                                     borderRadius: 1.5,
                                     bgcolor: 'transparent'
                                 }}
@@ -95,8 +173,8 @@ export function PortalHeader(props) {
                             </Box>
                         </Box>
 
-                        {/* Navigation */}
-                        <Stack direction="row" spacing={2} alignItems="center" sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        {/* Navigation Desktop */}
+                        <Stack direction="row" spacing={2} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                             <Stack direction="row" spacing={2}>
                                 <Button
                                     component={Link}
@@ -124,7 +202,7 @@ export function PortalHeader(props) {
                                 </Button>
                             </Stack>
 
-                            <Box sx={{ width: 1, height: 32, bgcolor: 'divider' }} />
+                            <Box sx={{ width: 1, height: 32, bgcolor: 'divider', mx: 1 }} />
 
                             <Chip
                                 label="Portail Public"
@@ -158,6 +236,35 @@ export function PortalHeader(props) {
                                 }}
                             />
                         </Stack>
+
+                        {/* Navigation Mobile (Hamburger) */}
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            sx={{ display: { md: 'none' }, ml: 1 }}
+                        >
+                            <FiMenu />
+                        </IconButton>
+
+                        <Drawer
+                            anchor="left"
+                            open={mobileOpen}
+                            onClose={handleDrawerToggle}
+                            ModalProps={{ keepMounted: true }}
+                            slotProps={{
+                                paper: {
+                                    sx: {
+                                        borderTopRightRadius: 10,
+                                        borderBottomRightRadius: 10,
+                                        boxShadow: '10px 0 30px rgba(0,0,0,0.1)'
+                                    }
+                                }
+                            }}
+                        >
+                            {drawer}
+                        </Drawer>
                     </Toolbar>
                 </Container>
             </AppBar>

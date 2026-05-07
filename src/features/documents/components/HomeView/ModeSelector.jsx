@@ -46,7 +46,7 @@ export function ModeSelector({ mode, ocr, onSelectMode }) {
                                     onClick={() => m.val === 'scan' ? ocr.openCapture() : onSelectMode(m.val)}
                                     sx={{ p: 0 }}
                                 >
-                                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2, py: 1.5, px: 2, '&:last-child': { pb: 1.5 } }}>
+                                    <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 1, py: 1.5, px: 2, '&:last-child': { pb: 1.5 } }}>
                                         <Box sx={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', p: 0.5 }}>
                                             {ocr.isProcessing && m.val === 'scan'
                                                 ? <CircularProgress size={32} color={isSelected ? 'inherit' : 'primary'} />

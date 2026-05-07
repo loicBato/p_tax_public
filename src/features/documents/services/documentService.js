@@ -1,8 +1,5 @@
 import axios from '../../../core/services/api';
 
-// ============================================================
-// Normalisation : convertit les données API en format unifié
-// ============================================================
 
 /**
  * Normalise un récépissé (withdrawal_receipt) en document unifié
@@ -116,7 +113,7 @@ export const searchDocuments = async (query, filters = {}) => {
 
         if (docType !== 'pv') {
             requests.push(
-                axios.get('/withdrawal-receipts', { params: { search: query } })
+                axios.get('public/receipts', { params: { search: query } })
                     .then(res => ({ type: 'receipts', data: res.data?.data || [] }))
                     .catch(() => ({ type: 'receipts', data: [] }))
             );
@@ -124,7 +121,7 @@ export const searchDocuments = async (query, filters = {}) => {
 
         if (docType !== 'recepisse') {
             requests.push(
-                axios.get('/payments-public', { params: { search: query } })
+                axios.get('public/payments', { params: { search: query } })
                     .then(res => ({ type: 'payments', data: res.data?.data || [] }))
                     .catch(() => ({ type: 'payments', data: [] }))
             );
@@ -160,7 +157,7 @@ export const searchDocuments = async (query, filters = {}) => {
  */
 export const getReceiptByRef = async (ref) => {
     try {
-        const response = await axios.get('/withdrawal-receipts', { params: { search: ref } });
+        const response = await axios.get('public/receipts', { params: { search: ref } });
         const receipts = response.data?.data || [];
 
         // Chercher le match exact (insensible casse, sans espaces/tirets)
@@ -182,7 +179,7 @@ export const getReceiptByRef = async (ref) => {
  */
 export const getPaymentByRef = async (ref) => {
     try {
-        const response = await axios.get('/payments-public', { params: { search: ref } });
+        const response = await axios.get('public/payments', { params: { search: ref } });
         const payments = response.data?.data || [];
 
         const cleanRef = ref.toUpperCase().replace(/[\s-]/g, '');

@@ -30,7 +30,6 @@ export function SplashScreen({ onComplete }) {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
                     sx={{
-                        fixed: 'inset-0',
                         position: 'fixed',
                         top: 0,
                         left: 0,
@@ -55,7 +54,7 @@ export function SplashScreen({ onComplete }) {
                         backgroundSize: '20px 20px'
                     }} /> */}
 
-                    <Stack spacing={4} alignItems="center" sx={{ position: 'relative', zIndex: 10 }}>
+                    <Stack spacing={4} sx={{ position: 'relative', zIndex: 10, alignItems: 'center' }}>
                         <Box
                             component={motion.div}
                             initial={{ scale: 0.8, opacity: 0 }}
