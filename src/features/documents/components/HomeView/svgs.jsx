@@ -162,6 +162,6 @@ export const DOCS = [
 
 export const MODES = [
     { val: 'scan', label: "Scanner une pièce d'identité", sub: 'Prenez une photo', mobileOnly: true, Img: ScanIDSVG, color: '#f0fdf4' },
-    { val: 'adv', label: 'Par plaque ou châssis', sub: 'Saisissez la plaque AZxxxx ou le n° châssis', Img: PlaqueSVG, color: '#fffbeb' },
+    { val: 'adv', label: 'Par plaque ou N° de châssis', sub: 'Saisissez la plaque ou le N° de châssis', Img: PlaqueSVG, color: '#fffbeb' },
     { val: 'ref', label: 'N° Récépissé / PV', sub: 'Sous forme WRxxxxxxxx ou PYxxxxxxx', Img: RefNumSVG, color: '#eff6ff' },
 ];

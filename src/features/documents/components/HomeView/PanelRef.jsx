@@ -70,21 +70,21 @@ export function PanelRef({ reference, setReference, isSearching, onSubmit }) {
                 {/* Texte */}
                 <Box sx={{ flex: 1, pt: 0.25 }}>
                     <Typography sx={{ fontSize: '0.7rem', fontWeight: 700, color: 'text.primary', mb: 0.75 }}>
-                        📍 Numéro situé en haut à droite du document
+                        Situé en haut du récépissé ou du procès-verbal
                     </Typography>
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.4 }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: '#16a34a', flexShrink: 0 }} />
                             <Typography sx={{ fontSize: '0.67rem', color: 'text.secondary' }}>
                                 Récépissé :{' '}
-                                <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 800, color: '#16a34a' }}>WR 0000 1234</Box>
+                                <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 800, color: '#16a34a' }}>WRxxxxxxxxxx</Box>
                             </Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: '#d97706', flexShrink: 0 }} />
                             <Typography sx={{ fontSize: '0.67rem', color: 'text.secondary' }}>
                                 Procès-verbal :{' '}
-                                <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 800, color: '#d97706' }}>PY 0098 765</Box>
+                                <Box component="span" sx={{ fontFamily: 'monospace', fontWeight: 800, color: '#d97706' }}>PYxxxxxxxxxx</Box>
                             </Typography>
                         </Box>
                     </Box>
