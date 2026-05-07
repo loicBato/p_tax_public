@@ -19,7 +19,7 @@ export function PanelRef({ reference, setReference, isSearching, onSubmit }) {
                 <TextField
                     fullWidth
                     placeholder="WRxxxxxxxxx ou PYxxxxxxxxx"
-                    size="small"
+                    size="medium"
                     value={reference}
                     onChange={(e) => setReference(e.target.value)}
                     variant="outlined"
@@ -32,7 +32,7 @@ export function PanelRef({ reference, setReference, isSearching, onSubmit }) {
                     type="submit"
                     variant="contained"
                     disabled={isSearching || !reference.trim()}
-                    sx={{ borderRadius: 2, px: 3, py: 1, fontSize: '0.85rem', boxShadow: 0, whiteSpace: 'nowrap' }}
+                    sx={{ borderRadius: 2, px: 3, py: 2, fontSize: '0.85rem', boxShadow: 0, whiteSpace: 'nowrap' }}
                 >
                     {isSearching ? <CircularProgress size={18} color="inherit" /> : 'Rechercher'}
                 </Button>

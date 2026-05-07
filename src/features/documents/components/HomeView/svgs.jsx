@@ -149,7 +149,7 @@ export const RefNumSVG = ({ selected }) => (
 /* ─── Données statiques ─── */
 
 export const ENGINS = [
-    { val: 'voiture', label: 'Véhicule léger', sub: 'Voitures, 4x4', Img: CarSVG },
+    { val: 'voiture', label: 'Véhicule', sub: 'Voitures, 4x4', Img: CarSVG },
     { val: 'moto', label: 'Moto / Tricycle', sub: '2 et 3 roues', Img: MotoSVG },
     { val: 'transport', label: 'Transport commun', sub: 'Bus, minibus', Img: BusSVG },
     { val: 'poids_lourd', label: 'Poids lourd', sub: 'Camions, remorques', Img: TruckSVG },

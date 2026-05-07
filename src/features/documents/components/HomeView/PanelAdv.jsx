@@ -123,7 +123,7 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                                 <Chip label={ENGINS.find(e => e.val === engin)?.label} size="small" color="success" variant="outlined" />
                                 <Chip label={DOCS.find(d => d.val === docType)?.label} size="small" color="success" variant="outlined" />
                             </Stack>
-                            <Box sx={{ mb: 2, p: 1.5, borderRadius: 2, bgcolor: 'grey.50', border: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 2 }}>
+                            {/* <Box sx={{ mb: 2, p: 1.5, borderRadius: 2, bgcolor: 'grey.50', border: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 2 }}>
                                 <PlaqueSVG selected={false} />
                                 <Box>
                                     <Typography sx={{ fontSize: '0.72rem', fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', letterSpacing: 0.8, mb: 0.25 }}>
@@ -136,12 +136,12 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                                         ou le numéro de châssis à 17 caractères
                                     </Typography>
                                 </Box>
-                            </Box>
+                            </Box> */}
                             <Box component="form" onSubmit={onSubmit} sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 1.5 }}>
                                 <TextField
                                     fullWidth
                                     placeholder="Plaque (AZ 1234) ou châssis (17 car.)"
-                                    size="small"
+                                    size="medium"
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     variant="outlined"
@@ -154,7 +154,7 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                                     type="submit"
                                     variant="contained"
                                     disabled={isSearching || !searchTerm.trim()}
-                                    sx={{ borderRadius: 2, px: 3, py: 1, fontSize: '0.85rem', textTransform: 'none', boxShadow: 0, whiteSpace: 'nowrap' }}
+                                    sx={{ borderRadius: 2, px: 3, py: 2, fontSize: '0.85rem', textTransform: 'none', boxShadow: 0, whiteSpace: 'nowrap' }}
                                 >
                                     {isSearching ? <CircularProgress size={20} color="inherit" /> : 'Rechercher'}
                                 </Button>

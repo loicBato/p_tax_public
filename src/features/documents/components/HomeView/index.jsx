@@ -5,6 +5,7 @@ import {
     useMediaQuery, useTheme,
 } from '@mui/material';
 import { useOcr } from '../../hooks/useOcr';
+import illustration from '../../../../assets/ptax_illustration.png'
 
 import { HomeHero } from './HomeHero';
 import { ModeSelector } from './ModeSelector';
@@ -86,30 +87,53 @@ export function HomeView({ onSearch, isSearching }) {
     );
 
     return (
-        <Container maxWidth="md" sx={{ py: { xs: 2, md: 4 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Container maxWidth="lg" sx={{ py: { xs: 2, md: 4 }, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} style={{ width: '100%' }}>
 
                 {/* ── Hero ── */}
                 <HomeHero />
-
-                {/* ── Carte principale ── */}
-                <Paper elevation={0} sx={{
-                    p: { xs: 2, md: 3 }, borderRadius: 3,
-                    border: '1px solid', borderColor: 'divider',
-                    bgcolor: 'background.paper', boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                <Box sx={{
+                    display: 'flex',
+                    gap: 3,
+                    alignItems: 'stretch',
+                    flexDirection: { xs: 'column', md: 'row' }
                 }}>
-                    <Box sx={{ mb: isMobile ? 0 : 3 }}>
-                        <ModeSelector mode={mode} ocr={ocr} onSelectMode={handleSelectMode} />
-                    </Box>
 
-                    {/* Desktop : contenu inline */}
                     {!isMobile && (
-                        <Box sx={{ borderTop: mode ? '1px solid' : 'none', borderColor: 'divider', pt: mode ? 2.5 : 0 }}>
-                            {dynamicContent}
+                        <Box sx={{
+                            flex: '0 0 40%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            // border: '1px solid',
+                            borderColor: 'divider',
+                            borderRadius: 3,
+                            bgcolor: 'background.paper',
+                            boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                        }}>
+                            <img src={illustration} alt="" sx={{ maxWidth: '100%' }} />
                         </Box>
                     )}
-                </Paper>
 
+                    {/* ── Carte principale ── */}
+                    <Paper elevation={0} sx={{
+                        p: { xs: 2, md: 3 }, borderRadius: 3,
+                        border: '1px solid', borderColor: 'divider',
+                        bgcolor: 'background.paper', boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                    }}>
+                        <Box sx={{ mb: isMobile ? 0 : 3 }}>
+                            <ModeSelector mode={mode} ocr={ocr} onSelectMode={handleSelectMode} />
+                        </Box>
+
+                        {/* Desktop : contenu inline */}
+                        {!isMobile && (
+                            <Box sx={{ borderTop: mode ? '1px solid' : 'none', borderColor: 'divider', pt: mode ? 2.5 : 0 }}>
+                                {dynamicContent}
+                            </Box>
+                        )}
+                    </Paper>
+
+                </Box>
 
                 {/* Mobile : bottom sheet */}
                 {isMobile && (
