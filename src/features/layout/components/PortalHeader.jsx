@@ -96,7 +96,7 @@ export function PortalHeader(props) {
                         </Box>
 
                         {/* Navigation */}
-                        <Stack direction="row" spacing={3} alignItems="center" sx={{ display: { xs: 'none', md: 'flex' } }}>
+                        <Stack direction="row" spacing={2} alignItems="center" sx={{ display: { xs: 'none', md: 'flex' } }}>
                             <Stack direction="row" spacing={2}>
                                 <Button
                                     component={Link}
