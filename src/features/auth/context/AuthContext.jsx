@@ -32,9 +32,9 @@ export function AuthProvider({ children }) {
     }, []);
 
     /** Appelé après verify-otp réussi */
-    const confirmVerified = useCallback(() => {
+    const confirmVerified = useCallback((token, citizen) => {
         setSession(prev => {
-            const s = { ...prev, verified: true };
+            const s = { ...prev, verified: true, token, citizen };
             saveSession(s);
             return s;
         });
@@ -47,9 +47,11 @@ export function AuthProvider({ children }) {
 
     const isAuthenticated = Boolean(session?.verified);
     const phone = session?.phone ?? null;
+    const user = session?.citizen ?? null;
+    const token = session?.token ?? null;
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, phone, setPhone, confirmVerified, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated, phone, user, token, setPhone, confirmVerified, logout }}>
             {children}
         </AuthContext.Provider>
     );

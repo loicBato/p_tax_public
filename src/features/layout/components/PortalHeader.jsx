@@ -19,7 +19,8 @@ import {
     ListItemText,
     useScrollTrigger
 } from '@mui/material';
-import { FiMenu, FiX, FiHelpCircle, FiMessageCircle, FiHome } from 'react-icons/fi';
+import { FiMenu, FiX, FiHelpCircle, FiMessageCircle, FiHome, FiLogOut, FiUser } from 'react-icons/fi';
+import { useAuth } from '../../auth/context/AuthContext';
 import logo from "../../../assets/police.JPG";
 
 function ElevationScroll(props) {
@@ -42,6 +43,7 @@ function ElevationScroll(props) {
 }
 
 export function PortalHeader(props) {
+    const { user, isAuthenticated, logout } = useAuth();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const handleDrawerToggle = () => {
@@ -93,9 +95,45 @@ export function PortalHeader(props) {
                         </ListItemButton>
                     </ListItem>
                 ))}
+                {isAuthenticated && (
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={() => { logout(); handleDrawerToggle(); }}
+                            sx={{
+                                borderRadius: 3,
+                                py: 1.5,
+                                color: 'error.main',
+                                '&:hover': { bgcolor: 'error.50' },
+                                transition: 'all 0.2s'
+                            }}
+                        >
+                            <ListItemIcon sx={{ minWidth: 40, color: 'inherit' }}>
+                                <FiLogOut size={20} />
+                            </ListItemIcon>
+                            <ListItemText
+                                primary="Déconnexion"
+                                slotProps={{
+                                    primary: {
+                                        sx: { fontWeight: 700, fontSize: '0.95rem' }
+                                    }
+                                }}
+                            />
+                        </ListItemButton>
+                    </ListItem>
+                )}
             </List>
 
             <Box sx={{ mt: 4, pt: 4, borderTop: '1px solid', borderColor: 'divider', textAlign: 'center' }}>
+                {isAuthenticated && user && (
+                    <Box sx={{ mb: 3, textAlign: 'left', p: 2, bgcolor: 'grey.50', borderRadius: 3 }}>
+                        <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>
+                            Connecté en tant que
+                        </Typography>
+                        <Typography variant="body2" sx={{ fontWeight: 800, mt: 0.5 }}>
+                            {user.name}
+                        </Typography>
+                    </Box>
+                )}
                 <Chip
                     label="Portail Public"
                     size="small"
@@ -176,65 +214,75 @@ export function PortalHeader(props) {
                         {/* Navigation Desktop */}
                         <Stack direction="row" spacing={2} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                             <Stack direction="row" spacing={2}>
-                                <Button
-                                    component={Link}
-                                    to="/assistance"
-                                    sx={{
-                                        textTransform: 'none',
-                                        fontWeight: 700,
-                                        color: 'text.secondary',
-                                        '&:hover': { color: 'primary.main', bgcolor: 'transparent' }
-                                    }}
-                                >
-                                    Assistance
-                                </Button>
-                                <Button
-                                    component={Link}
-                                    to="/faq"
-                                    sx={{
-                                        textTransform: 'none',
-                                        fontWeight: 700,
-                                        color: 'text.secondary',
-                                        '&:hover': { color: 'primary.main', bgcolor: 'transparent' }
-                                    }}
-                                >
-                                    FAQ
-                                </Button>
+                                {navItems.slice(1).map((item) => (
+                                    <Button
+                                        key={item.label}
+                                        component={Link}
+                                        to={item.path}
+                                        sx={{
+                                            textTransform: 'none',
+                                            fontWeight: 700,
+                                            color: 'text.secondary',
+                                            '&:hover': { color: 'primary.main', bgcolor: 'transparent' }
+                                        }}
+                                    >
+                                        {item.label}
+                                    </Button>
+                                ))}
                             </Stack>
 
-                            <Box sx={{ width: 1, height: 32, bgcolor: 'divider', mx: 1 }} />
+                            {/* <Box sx={{ width: 1, height: 32, bgcolor: 'divider', mx: 1 }} /> */}
 
-                            <Chip
-                                label="Portail Public"
-                                size="small"
-                                sx={{
-                                    bgcolor: 'grey.50',
-                                    border: '1px solid',
-                                    px: 1,
-                                    borderRadius: 1.5,
-                                    borderColor: 'divider',
-                                    fontWeight: 800,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: 1.2,
-                                    fontSize: '10px',
-                                    color: 'text.secondary',
-                                    '& .MuiChip-label': { px: 1 },
-                                    '&::before': {
-                                        content: '""',
-                                        width: 8,
-                                        height: 8,
-                                        bgcolor: 'success.main',
-                                        borderRadius: '50%',
-                                        mr: 0,
-                                        animation: 'pulse 2s infinite'
-                                    },
-                                    '@keyframes pulse': {
-                                        '0%': { opacity: 1, transform: 'scale(1)' },
-                                        '50%': { opacity: 0.5, transform: 'scale(1.2)' },
-                                        '100%': { opacity: 1, transform: 'scale(1)' }
-                                    }
-                                }}
-                            />
+                            {isAuthenticated && user ? (
+                                <Stack direction="row" spacing={2} alignItems="center">
+                                    {/* <Box sx={{ textAlign: 'right' }}>
+                                        <Typography variant="caption" sx={{ display: 'block', fontWeight: 700, color: 'text.secondary', lineHeight: 1 }}>
+                                            Citoyen
+                                        </Typography>
+                                        <Typography variant="body2" sx={{ fontWeight: 800 }}>
+                                            {user.name}
+                                        </Typography>
+                                    </Box> */}
+                                    {/* <Avatar sx={{ width: 28, height: 28, bgcolor: 'primary.main', fontSize: '0.7rem', fontWeight: 700 }}>
+                                        {user.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+                                    </Avatar> */}
+                                    <IconButton onClick={logout} size="small" color="error" sx={{ ml: 1 }} title="Déconnexion">
+                                        <FiLogOut size={18} />
+                                    </IconButton>
+                                </Stack>
+                            ) : (
+                                <Chip
+                                    label="Portail Public"
+                                    size="small"
+                                    sx={{
+                                        bgcolor: 'grey.50',
+                                        border: '1px solid',
+                                        px: 1,
+                                        borderRadius: 1.5,
+                                        borderColor: 'divider',
+                                        fontWeight: 800,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: 1.2,
+                                        fontSize: '10px',
+                                        color: 'text.secondary',
+                                        '& .MuiChip-label': { px: 1 },
+                                        '&::before': {
+                                            content: '""',
+                                            width: 8,
+                                            height: 8,
+                                            bgcolor: 'success.main',
+                                            borderRadius: '50%',
+                                            mr: 0,
+                                            animation: 'pulse 2s infinite'
+                                        },
+                                        '@keyframes pulse': {
+                                            '0%': { opacity: 1, transform: 'scale(1)' },
+                                            '50%': { opacity: 0.5, transform: 'scale(1.2)' },
+                                            '100%': { opacity: 1, transform: 'scale(1)' }
+                                        }
+                                    }}
+                                />
+                            )}
                         </Stack>
 
                         {/* Navigation Mobile (Hamburger) */}

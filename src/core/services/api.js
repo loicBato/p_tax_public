@@ -9,4 +9,20 @@ const axios = baseAxios.create({
     },
 });
 
+// Intercepteur pour injecter le token
+axios.interceptors.request.use((config) => {
+    const sessionRaw = sessionStorage.getItem('ptax_auth');
+    if (sessionRaw) {
+        try {
+            const session = JSON.parse(sessionRaw);
+            if (session.token) {
+                config.headers.Authorization = `Bearer ${session.token}`;
+            }
+        } catch (e) {
+            console.error('Erreur lecture session token', e);
+        }
+    }
+    return config;
+});
+
 export default axios;

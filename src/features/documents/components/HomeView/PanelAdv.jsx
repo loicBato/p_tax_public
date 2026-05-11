@@ -145,9 +145,11 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     variant="outlined"
-                                    InputProps={{
-                                        startAdornment: <InputAdornment position="start"><Search size={16} color="#666" /></InputAdornment>,
-                                        sx: { borderRadius: 2, bgcolor: 'grey.50' },
+                                    slotProps={{
+                                        input: {
+                                            startAdornment: <InputAdornment position="start"><Search size={16} color="#666" /></InputAdornment>,
+                                            sx: { borderRadius: 2, bgcolor: 'grey.50' },
+                                        }
                                     }}
                                 />
                                 <Button

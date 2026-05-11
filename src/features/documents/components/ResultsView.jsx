@@ -118,8 +118,9 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                         <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: 'text.primary' }}>
                             Aucun dossier trouvé
                         </Typography>
-                        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4, opacity: 0.8 }}>
-                            Nous n'avons trouvé aucun document correspondant à votre recherche.
+                        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4, opacity: 0.8, maxWidth: 450, mx: 'auto' }}>
+                            Nous n'avons trouvé aucun document correspondant à votre recherche. 
+                            Vérifiez les informations saisies ou assurez-vous que le véhicule est bien lié au numéro avec lequel vous êtes connecté.
                         </Typography>
                         <Button
                             variant="contained"

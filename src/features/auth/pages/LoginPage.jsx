@@ -90,7 +90,8 @@ export default function LoginPage() {
         try {
             const res = await verifyOtpRequest(sessionPhone, otp);
             if (res.success) {
-                confirmVerified();
+                const { token, citizen } = res.data;
+                confirmVerified(token, citizen);
                 navigate('/', { replace: true });
             } else {
                 setError(res.message || 'Code incorrect. Réessayez.');

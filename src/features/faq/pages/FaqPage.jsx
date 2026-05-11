@@ -138,18 +138,20 @@ export default function FaqPage() {
                     placeholder="Posez votre question (ex: paiement, récépissé, fourrière...)"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                <Search size={20} color="grey" />
-                            </InputAdornment>
-                        ),
-                        sx: {
-                            borderRadius: 1.5,
-                            bgcolor: 'white',
-                            '& fieldset': { borderColor: 'divider' },
-                            '&:hover fieldset': { borderColor: 'primary.main' },
-                            py: 0.2
+                    slotProps={{
+                        input: {
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    <Search size={20} color="grey" />
+                                </InputAdornment>
+                            ),
+                            sx: {
+                                borderRadius: 1.5,
+                                bgcolor: 'white',
+                                '& fieldset': { borderColor: 'divider' },
+                                '&:hover fieldset': { borderColor: 'primary.main' },
+                                py: 0.2
+                            }
                         }
                     }}
                 />
