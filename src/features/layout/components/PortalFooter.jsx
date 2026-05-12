@@ -23,7 +23,7 @@ export function PortalFooter() {
                             <Typography variant="subtitle2" sx={{ fontWeight: 800, textTransform: 'uppercase', lineHeight: 1 }}>
                                 P-Tax Togo
                             </Typography>
-                            <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 700, opacity: 0.8 }}>
+                            <Typography variant="caption" sx={{ color: 'primary.main', fontWeight: 500, opacity: 0.8 }}>
                                 Portail Public Numérique
                             </Typography>
                         </Box>
@@ -59,7 +59,7 @@ export function PortalFooter() {
                                 textDecoration: 'none',
                                 color: 'text.secondary',
                                 fontSize: '0.85rem',
-                                fontWeight: 700,
+                                fontWeight: 500,
                                 transition: 'color 0.2s',
                                 '&:hover': { color: 'primary.main' }
                             }

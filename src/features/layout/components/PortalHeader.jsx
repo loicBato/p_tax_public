@@ -213,7 +213,7 @@ export function PortalHeader(props) {
 
                         {/* Navigation Desktop */}
                         <Stack direction="row" spacing={2} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-                            <Stack direction="row" spacing={2}>
+                            {/* <Stack direction="row" spacing={2}>
                                 {navItems.slice(1).map((item) => (
                                     <Button
                                         key={item.label}
@@ -229,7 +229,7 @@ export function PortalHeader(props) {
                                         {item.label}
                                     </Button>
                                 ))}
-                            </Stack>
+                            </Stack> */}
 
                             {/* <Box sx={{ width: 1, height: 32, bgcolor: 'divider', mx: 1 }} /> */}
 

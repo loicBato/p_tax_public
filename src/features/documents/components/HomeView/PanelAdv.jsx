@@ -5,7 +5,22 @@ import {
 } from '@mui/material';
 import { FiSearch as Search, FiChevronLeft as ChevronLeft } from 'react-icons/fi';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ENGINS, DOCS, PlaqueSVG } from './svgs';
+import veloImg from "../../../../assets/images/bike.png"
+import motoImg from "../../../../assets/images/motorcycle.png"
+import tricycleImg from "../../../../assets/images/tricycle.png"
+import voitureImg from "../../../../assets/images/luxury-car.png";
+import busImg from "../../../../assets/images/bus.png";
+import camionImg from "../../../../assets/images/truck.png";
+import { ENGINS as ENGINS_RAW, DOCS, PlaqueSVG } from './svgs';
+
+const ENGINS = [
+    { val: 'vélo', label: 'Vélo', img: veloImg },
+    { val: 'moto', label: 'Moto', img: motoImg },
+    { val: 'tricycle', label: 'Tricycle', img: tricycleImg },
+    { val: 'voiture', label: 'Voiture', img: voitureImg },
+    { val: 'bus', label: 'Bus', img: busImg },
+    { val: 'camion', label: 'Camion', img: camionImg },
+];
 
 export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, setSearchTerm, isSearching, onSubmit }) {
     const [advStep, setAdvStep] = useState(1);
@@ -27,7 +42,7 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
     };
 
     return (
-        <Box>
+        <Box sx={{ pt: 0 }}>
             <Stepper activeStep={advStep - 1} alternativeLabel sx={{ mb: 3 }}>
                 {['Engin', 'Document', 'Critère'].map((label) => (
                     <Step key={label}><StepLabel>{label}</StepLabel></Step>
@@ -42,7 +57,7 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                             <Typography variant="subtitle2" sx={{ mb: 2, fontWeight: 800, color: 'text.secondary', fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: 1 }}>
                                 Quel type de véhicule ?
                             </Typography>
-                            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(4, 1fr)' }, gap: 1.5 }}>
+                            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)' }, gap: 1.5 }}>
                                 {ENGINS.map((e) => {
                                     const isSel = engin === e.val;
                                     return (
@@ -60,15 +75,27 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                                                 '&:hover': { borderColor: 'primary.main', transform: 'translateY(-2px)', boxShadow: '0 4px 12px rgba(37,99,235,0.15)' },
                                             }}
                                         >
-                                            <e.Img selected={isSel} />
+                                            <Box
+                                                component="img"
+                                                src={e.img}
+                                                alt={e.label}
+                                                sx={{
+                                                    width: 50,
+                                                    height: 35,
+                                                    objectFit: 'contain',
+                                                    filter: isSel ? 'brightness(1.1) saturate(1.2)' : 'grayscale(0.3)',
+                                                    transition: 'all 0.2s',
+                                                    mb: 0.5
+                                                }}
+                                            />
                                             <Typography variant="caption" sx={{ fontWeight: 800, color: isSel ? 'white' : 'text.primary', fontSize: '0.72rem', textAlign: 'center', lineHeight: 1.2 }}>
                                                 {e.label}
                                             </Typography>
-                                            <Typography variant="caption" sx={{ color: isSel ? 'rgba(255,255,255,0.75)' : 'text.secondary', fontSize: '0.65rem', textAlign: 'center' }}>
+                                            {/* <Typography variant="caption" sx={{ color: isSel ? 'rgba(255,255,255,0.75)' : 'text.secondary', fontSize: '0.65rem', textAlign: 'center' }}>
                                                 {e.sub}
-                                            </Typography>
+                                            </Typography> */}
                                         </Box>
-                                    );
+                                    )
                                 })}
                             </Box>
                         </motion.div>
@@ -168,6 +195,6 @@ export function PanelAdv({ engin, setEngin, docType, setDocType, searchTerm, set
                     )}
                 </AnimatePresence>
             </Box>
-        </Box>
+        </Box >
     );
 }

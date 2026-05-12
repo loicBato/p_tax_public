@@ -64,45 +64,45 @@ export default function AssistancePage() {
 
             {/* Cartes de contact */}
             <Grid container spacing={2} sx={{ mb: 4 }}>
-                <Grid item xs={12} md={4}>
-                    <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
-                        <ContactCard
-                            icon={<Phone size={24} />}
-                            title="Par téléphone"
-                            detail="+228 22 21 29 62"
-                            subDetail="Lun – Ven : 07h30 – 17h00"
-                            color="primary.main"
-                            href="tel:+22822212962"
-                        />
-                    </motion.div>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
-                        <ContactCard
-                            icon={<Mail size={24} />}
-                            title="Par email"
-                            detail="support@ptax.tg"
-                            subDetail="Réponse en 24h"
-                            color="#2563eb"
-                            href="mailto:support@ptax.tg"
-                        />
-                    </motion.div>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
-                        <ContactCard
-                            icon={<MapPin size={24} />}
-                            title="En personne"
-                            detail="Commissariat Central"
-                            subDetail="Lomé, Boulevard du 13 Janvier"
-                            color="#059669"
-                        />
-                    </motion.div>
-                </Grid>
+                {/* <Grid item xs={12} md={4}> */}
+                <motion.div custom={0} variants={fadeUp} initial="hidden" animate="visible">
+                    <ContactCard
+                        icon={<Phone size={24} />}
+                        title="Par téléphone"
+                        detail="+228 22 21 29 62"
+                        subDetail="Lun - Ven: 07h30 - 17h00"
+                        color="primary.main"
+                        href="tel:+22822212962"
+                    />
+                </motion.div>
+                {/* </Grid> */}
+                {/* <Grid item xs={12} md={4}> */}
+                <motion.div custom={1} variants={fadeUp} initial="hidden" animate="visible">
+                    <ContactCard
+                        icon={<Mail size={24} />}
+                        title="Par email"
+                        detail="support@ptax.tg"
+                        subDetail="Réponse en 24h"
+                        color="#2563eb"
+                        href="mailto:support@ptax.tg"
+                    />
+                </motion.div>
+                {/* </Grid> */}
+                {/* <Grid item xs={12} md={4}> */}
+                <motion.div custom={2} variants={fadeUp} initial="hidden" animate="visible">
+                    <ContactCard
+                        icon={<MapPin size={24} />}
+                        title="En personne"
+                        detail="Commissariat Central"
+                        subDetail="Lomé, Boulevard du 13 Janvier"
+                        color="#059669"
+                    />
+                </motion.div>
+                {/* </Grid> */}
             </Grid>
 
             {/* Horaires d'ouverture */}
-            <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
+            {/* <motion.div custom={3} variants={fadeUp} initial="hidden" animate="visible">
                 <Paper elevation={0} sx={{ p: 2.5, mb: 4, borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
                     <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
                         <Avatar variant="rounded" sx={{ width: 36, height: 36, bgcolor: 'warning.light', borderRadius: 1.5 }}>
@@ -127,7 +127,7 @@ export default function AssistancePage() {
                         </Grid>
                     </Grid>
                 </Paper>
-            </motion.div>
+            </motion.div> */}
 
             {/* FAQ rapide */}
             <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible">
@@ -243,7 +243,7 @@ function ContactCard({ icon, title, detail, subDetail, color, href }) {
                 borderRadius: 2,
                 border: '1px solid',
                 borderColor: 'divider',
-                height: '100%',
+                // height: '100%',
                 textDecoration: 'none',
                 transition: 'all 0.2s',
                 '&:hover': isLink ? {
@@ -253,7 +253,7 @@ function ContactCard({ icon, title, detail, subDetail, color, href }) {
                 } : {}
             }}
         >
-            <CardContent sx={{ p: 2.5 }}>
+            <CardContent sx={{ p: 2 }}>
                 <Avatar sx={{ bgcolor: color, width: 36, height: 36, mb: 1.5, borderRadius: 1.5 }}>
                     {icon}
                 </Avatar>
@@ -271,28 +271,28 @@ function ContactCard({ icon, title, detail, subDetail, color, href }) {
     );
 }
 
-function HoraireRow({ jour, horaire, actif = false, ferme = false }) {
-    return (
-        <Paper
-            elevation={0}
-            sx={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                px: 2,
-                py: 1,
-                borderRadius: 1.5,
-                bgcolor: actif ? 'success.light' : ferme ? 'error.light' : 'grey.50',
-                color: (actif || ferme) ? 'white' : 'text.primary',
-                border: '1px solid',
-                borderColor: actif ? 'success.main' : ferme ? 'error.main' : 'divider'
-            }}
-        >
-            <Typography variant="caption" sx={{ fontWeight: 800 }}>{jour}</Typography>
-            <Typography variant="caption" sx={{ fontWeight: 800 }}>{horaire}</Typography>
-        </Paper>
-    );
-}
+// function HoraireRow({ jour, horaire, actif = false, ferme = false }) {
+//     return (
+//         <Paper
+//             elevation={0}
+//             sx={{
+//                 display: 'flex',
+//                 justifyContent: 'space-between',
+//                 alignItems: 'center',
+//                 px: 2,
+//                 py: 1,
+//                 borderRadius: 1.5,
+//                 bgcolor: actif ? 'success.light' : ferme ? 'error.light' : 'grey.50',
+//                 color: (actif || ferme) ? 'white' : 'text.primary',
+//                 border: '1px solid',
+//                 borderColor: actif ? 'success.main' : ferme ? 'error.main' : 'divider'
+//             }}
+//         >
+//             <Typography variant="caption" sx={{ fontWeight: 800 }}>{jour}</Typography>
+//             <Typography variant="caption" sx={{ fontWeight: 800 }}>{horaire}</Typography>
+//         </Paper>
+//     );
+// }
 
 function FaqItem({ question, answer }) {
     return (

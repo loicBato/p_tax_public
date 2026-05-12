@@ -12,6 +12,7 @@ import { ModeSelector } from './ModeSelector';
 import { PanelRef } from './PanelRef';
 import { PanelAdv } from './PanelAdv';
 import { SearchDrawer } from './SearchDrawer';
+import { SearchProcessSteps } from './SearchProcessSteps';
 import { useAuth } from '../../../auth/context/AuthContext';
 import { FiLock as LockIcon } from 'react-icons/fi';
 import { alpha } from '@mui/material/styles';
@@ -53,7 +54,7 @@ export function HomeView({ onSearch, isSearching }) {
 
     /* ── Contenu dynamique partagé desktop / mobile ── */
     const dynamicContent = (
-        <Box>
+        <Box sx={{ pt: 0 }}>
             <AnimatePresence mode="wait">
                 {mode === 'ref' && (
                     <motion.div key="panel-ref" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
@@ -127,39 +128,54 @@ export function HomeView({ onSearch, isSearching }) {
                 <Box sx={{
                     display: 'flex',
                     gap: 3,
-                    alignItems: 'stretch',
+                    alignItems: 'flex',
                     flexDirection: { xs: 'column', md: 'row' }
                 }}>
+
+
 
                     {!isMobile && (
                         <Box sx={{
                             flex: '0 0 40%',
                             display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            // border: '1px solid',
-                            borderColor: 'divider',
-                            borderRadius: 3,
-                            bgcolor: 'background.paper',
-                            boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                            flexDirection: 'column',
+                            gap: 4,
                         }}>
-                            <img src={illustration} alt="" sx={{ maxWidth: '100%', borderRadius: 3 }} />
+                            <SearchProcessSteps />
+                            <Box sx={{
+                                flex: 1,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                borderRadius: 3,
+                                bgcolor: 'background.paper',
+                                boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                                border: '1px solid',
+                                borderColor: 'divider',
+                                overflow: 'hidden'
+                            }}>
+                                <img src={illustration} alt="" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                            </Box>
                         </Box>
                     )}
 
                     {/* ── Carte principale ── */}
                     <Paper elevation={0} sx={{
+                        flex: 1,
                         p: { xs: 2, md: 3 }, borderRadius: 3,
                         border: '1px solid', borderColor: 'divider',
                         bgcolor: 'background.paper', boxShadow: '0 4px 24px rgba(0,0,0,0.05)',
+                        display: 'flex', flexDirection: 'column', gap: isMobile ? 2 : 0
                     }}>
+                        {isMobile && <SearchProcessSteps />}
+
                         <Box sx={{ mb: isMobile ? 0 : 3 }}>
                             <ModeSelector mode={mode} ocr={ocr} onSelectMode={handleSelectMode} />
                         </Box>
 
                         {/* Desktop : contenu inline */}
                         {!isMobile && (
-                            <Box sx={{ borderTop: mode ? '1px solid' : 'none', borderColor: 'divider', pt: mode ? 2.5 : 0 }}>
+                            <Box sx={{ borderTop: mode ? '1px solid' : 'none', borderColor: 'divider', pt: mode ? 1 : 0 }}>
                                 {dynamicContent}
                             </Box>
                         )}
