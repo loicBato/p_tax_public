@@ -234,7 +234,7 @@ export default function FaqPage() {
                 <Box sx={{ position: 'absolute', top: 0, right: 0, width: 200, height: 200, bgcolor: 'white', opacity: 0.05, borderRadius: '50%', mr: -10, mt: -10 }} />
                 
                 <Grid container spacing={4} alignItems="center">
-                    <Grid item xs={12} md={8}>
+                    <Grid xs={12} md={8}>
                         <Typography variant="h6" sx={{ fontWeight: 800, mb: 0.5 }}>
                             Vous n'avez pas trouvé votre réponse ?
                         </Typography>
@@ -242,7 +242,7 @@ export default function FaqPage() {
                             Notre équipe d'assistance est là pour vous aider à chaque étape de votre démarche.
                         </Typography>
                     </Grid>
-                    <Grid item xs={12} md={4} sx={{ textAlign: { md: 'right' } }}>
+                    <Grid xs={12} md={4} sx={{ textAlign: { md: 'right' } }}>
                         <Button
                             component={Link}
                             to="/assistance"

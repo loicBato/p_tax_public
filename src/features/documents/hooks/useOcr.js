@@ -8,6 +8,7 @@ import Tesseract from 'tesseract.js';
 export function useOcr() {
     const [isProcessing, setIsProcessing] = useState(false);
     const [preview, setPreview] = useState(null);
+    const [rawText, setRawText] = useState('');
     const fileInputRef = useRef(null);
 
     /**
@@ -33,11 +34,12 @@ export function useOcr() {
                 logger: () => {}, // silencieux
             });
 
-            const rawText = result.data.text || '';
+            const text = result.data.text || '';
+            setRawText(text);
 
             // Nettoyer le texte : extraire les patterns utiles
-            const extracted = extractRelevantText(rawText);
-            return extracted;
+            const extracted = extractRelevantText(text);
+            return { extracted, raw: text };
         } catch (error) {
             console.error('Erreur OCR:', error);
             return '';
@@ -53,9 +55,9 @@ export function useOcr() {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        const text = await processImage(file);
-        if (text && onResult) {
-            onResult(text);
+        const result = await processImage(file);
+        if (result && onResult) {
+            onResult(result.extracted, result.raw);
         }
 
         // Reset l'input pour permettre de re-sélectionner le même fichier
@@ -66,11 +68,13 @@ export function useOcr() {
 
     const clearPreview = () => {
         setPreview(null);
+        setRawText('');
     };
 
     return {
         isProcessing,
         preview,
+        rawText,
         fileInputRef,
         openCapture,
         handleFileChange,

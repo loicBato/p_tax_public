@@ -97,6 +97,7 @@ export function ReceiptTemplate({ doc }) {
                 <div className="space-y-0 px-0">
                     <LabelValue label={plate ? "IMMATRICULATION" : "CHASSIS"} value={plate || chassis} bold />
                     {/* <LabelValue label="PROPRIETAIRE / CONDUCTEUR" value={offenderName} bold /> */}
+                    <LabelValue label="TYPE DE VÉHICULE" value={doc.vehicleTypeName || doc.vehicleType} bold />
                     <LabelValue label="CONTACT" value={formatPhoneNumber(offenderPhone)} bold />
                 </div>
 

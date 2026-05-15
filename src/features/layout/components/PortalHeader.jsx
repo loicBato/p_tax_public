@@ -212,7 +212,7 @@ export function PortalHeader(props) {
                         </Box>
 
                         {/* Navigation Desktop */}
-                        <Stack direction="row" spacing={2} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+                        <Stack sx={{ flexDirection: 'row', gap: 2, display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
                             {/* <Stack direction="row" spacing={2}>
                                 {navItems.slice(1).map((item) => (
                                     <Button
@@ -234,7 +234,7 @@ export function PortalHeader(props) {
                             {/* <Box sx={{ width: 1, height: 32, bgcolor: 'divider', mx: 1 }} /> */}
 
                             {isAuthenticated && user ? (
-                                <Stack direction="row" spacing={2} alignItems="center">
+                                <Stack sx={{ flexDirection: 'row', gap: 2, alignItems: 'center' }}>
                                     {/* <Box sx={{ textAlign: 'right' }}>
                                         <Typography variant="caption" sx={{ display: 'block', fontWeight: 700, color: 'text.secondary', lineHeight: 1 }}>
                                             Citoyen

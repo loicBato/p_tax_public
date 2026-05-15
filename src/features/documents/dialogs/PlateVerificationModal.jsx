@@ -33,10 +33,12 @@ export function PlateVerificationModal({
             maxWidth="xs"
             fullWidth
             TransitionComponent={Fade}
-            PaperProps={{
-                sx: {
-                    borderRadius: 2,
-                    p: 0.5
+            slotProps={{
+                paper: {
+                    sx: {
+                        borderRadius: 2,
+                        p: 0.5
+                    }
                 }
             }}
         >
@@ -81,14 +83,20 @@ export function PlateVerificationModal({
                                 error={plateError}
                                 helperText={plateError ? "Numéro de plaque incorrect" : ""}
                                 variant="outlined"
-                                inputProps={{
-                                    sx: {
-                                        textAlign: 'center',
-                                        textTransform: 'uppercase',
-                                        letterSpacing: 4,
-                                        fontSize: '1.2rem',
-                                        fontWeight: 800,
-                                        py: 1.5
+                                slotProps={{
+                                    htmlInput: {
+                                        style: {
+                                            textAlign: 'center',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 4,
+                                            fontSize: '1.2rem',
+                                            fontWeight: 800,
+                                        }
+                                    },
+                                    input: {
+                                        sx: {
+                                            py: 1.5
+                                        }
                                     }
                                 }}
                                 sx={{

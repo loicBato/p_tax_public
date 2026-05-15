@@ -197,15 +197,17 @@ export function HomeView({ onSearch, isSearching }) {
                     accept="image/*"
                     capture="environment"
                     style={{ display: 'none' }}
-                    onChange={(e) => ocr.handleFileChange(e, (text) => {
-                        if (text) {
-                            if (mode === 'adv') { setSearchTerm(text); }
-                            else { setMode('ref'); setReference(text); }
+                    onChange={(e) => ocr.handleFileChange(e, (extracted, raw) => {
+                        console.log('Texte brut:', raw);
+                        console.log('Texte extrait:', extracted);
+
+                        if (extracted) {
+                            if (mode === 'adv') { setSearchTerm(extracted); }
+                            else { setMode('ref'); setReference(extracted); }
                         }
                     })}
                 />
 
-                {/* Indicateur OCR */}
                 <AnimatePresence>
                     {ocr.isProcessing && (
                         <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}>
@@ -217,6 +219,32 @@ export function HomeView({ onSearch, isSearching }) {
                                 <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                                     Analyse de l'image en cours…
                                 </Typography>
+                            </Box>
+                        </motion.div>
+                    )}
+
+                    {!ocr.isProcessing && ocr.rawText && (
+                        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}>
+                            <Box sx={{
+                                mt: 2, p: 1.5, borderRadius: 2, bgcolor: 'grey.50', border: '1px dashed', borderColor: 'divider',
+                                position: 'relative'
+                            }}>
+                                <Typography variant="caption" sx={{ display: 'block', mb: 0.5, fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '10px' }}>
+                                    Texte brut détecté (OCR) :
+                                </Typography>
+                                <Typography variant="caption" sx={{ fontStyle: 'italic', color: 'text.secondary', fontSize: '0.7rem', display: 'block', maxHeight: 60, overflowY: 'auto' }}>
+                                    "{ocr.rawText}"
+                                </Typography>
+                                <Box
+                                    component="button"
+                                    onClick={ocr.clearPreview}
+                                    sx={{
+                                        position: 'absolute', top: 8, right: 8, border: 'none', background: 'none',
+                                        cursor: 'pointer', color: 'text.disabled', '&:hover': { color: 'error.main' }
+                                    }}
+                                >
+                                    Effacer
+                                </Box>
                             </Box>
                         </motion.div>
                     )}

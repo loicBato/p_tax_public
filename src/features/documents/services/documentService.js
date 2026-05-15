@@ -30,6 +30,7 @@ const normalizeReceipt = (receipt) => {
         issuer: receipt.post_office_name || 'Non spécifié',
         description: receipt.description || null,
         vehicleType: receipt.vehicle_type || null,
+        vehicleTypeName: receipt.vehicle_type_name || null,
         agentNote: receipt.agent_note || null,
         agentId: receipt.agent_id || null,
         agent: receipt.agent || null,
@@ -78,6 +79,7 @@ const normalizePayment = (payment) => {
         issuer: receipt.post_office_name || 'Non spécifié',
         description: receipt.description || null,
         vehicleType: receipt.vehicle_type || null,
+        vehicleTypeName: receipt.vehicle_type_name || null,
         paymentMode: payment.payment_mode || null,
         receiptRef: payment.withdrawal_receipt_ref || null,
         agentId: receipt.agent_id || payment.agent_id || null,
@@ -132,13 +134,26 @@ export const searchDocuments = async (query, filters = {}) => {
         for (const resp of responses) {
             if (resp.type === 'receipts') {
                 resp.data.forEach((receipt) => {
-                    // Filtre véhicule côté client si spécifié
-                    if (vehicleType && receipt.vehicle_type !== vehicleType) return;
+                    // Filtre véhicule côté client si spécifié (on check le type technique OU le nom lisible)
+                    if (vehicleType) {
+                        const vType = (receipt.vehicle_type || '').toLowerCase();
+                        const vName = (receipt.vehicle_type_name || '').toLowerCase();
+                        const filter = vehicleType.toLowerCase();
+                        
+                        if (vType !== filter && vName !== filter && !vName.includes(filter)) return;
+                    }
                     results.push(normalizeReceipt(receipt));
                 });
             } else if (resp.type === 'payments') {
                 resp.data.forEach((payment) => {
-                    if (vehicleType && payment.receipt?.vehicle_type !== vehicleType) return;
+                    const receipt = payment.receipt || {};
+                    if (vehicleType) {
+                        const vType = (receipt.vehicle_type || '').toLowerCase();
+                        const vName = (receipt.vehicle_type_name || '').toLowerCase();
+                        const filter = vehicleType.toLowerCase();
+                        
+                        if (vType !== filter && vName !== filter && !vName.includes(filter)) return;
+                    }
                     results.push(normalizePayment(payment));
                 });
             }

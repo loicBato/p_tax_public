@@ -128,7 +128,7 @@ export function ReportPdfTemplate({ receipt }) {
                 </div>
 
                 <div className="text-[14px] leading-relaxed text-justify">
-                    Monsieur (Madame) <span className="font-bold">{offenderName}</span>, tél: <span className="font-bold">{formatPhoneNumber(offenderPhone)}</span>, conduisant un véhicule de plaque <span className="font-bold">{plate}</span>, <span className="font-bold">{description}</span> a commis les infractions ci-après:
+                    Monsieur (Madame) <span className="font-bold">{offenderName}</span>, tél: <span className="font-bold">{formatPhoneNumber(offenderPhone)}</span>, conduisant un véhicule de type <span className="font-bold">{receipt.vehicleTypeName || receipt.vehicleType || '—'}</span> de plaque <span className="font-bold">{plate}</span>, <span className="font-bold">{description}</span> a commis les infractions ci-après:
                 </div>
 
                 {/* LISTE DES FACTURES / PENALITÉS */}

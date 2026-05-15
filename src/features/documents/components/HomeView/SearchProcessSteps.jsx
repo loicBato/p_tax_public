@@ -49,7 +49,7 @@ export function SearchProcessSteps() {
                 Le processus en 3 étapes
             </Typography>
             
-            <Stack direction="row" spacing={1} justifyContent="center" sx={{ position: 'relative' }}>
+            <Stack sx={{ flexDirection: 'row', gap: 1, justifyContent: 'center', position: 'relative' }}>
                 {PROCESS_STEPS.map((step, idx) => (
                     <Box key={idx} sx={{ flex: 1, textAlign: 'center', position: 'relative' }}>
                         {/* Ligne de connexion entre les étapes */}

@@ -9,7 +9,10 @@ import {
 import { FaStamp as Stamp, FaGavel as Gavel, FaCar as Car } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import moment from 'moment';
-import { FiUser as User } from 'react-icons/fi';
+import { FiUser as User, FiTruck as Truck } from 'react-icons/fi';
+import { BiBus as Bus, BiCycling as Cycling } from 'react-icons/bi';
+import { RiMotorbikeFill as Moto } from 'react-icons/ri';
+import { MdDirectionsBike as Tricycle } from 'react-icons/md';
 import {
     Box,
     Container,
@@ -46,6 +49,23 @@ function maskPlate(plate) {
     const clean = plate.replace(/[\s-]/g, '');
     if (clean.length <= 4) return clean.slice(0, 1) + 'x'.repeat(clean.length - 1);
     return clean.slice(0, 1) + 'x'.repeat(clean.length - 2) + clean.slice(-1);
+}
+
+/**
+ * Récupère l'icône correspondante au type de véhicule
+ */
+function getVehicleIcon(type, name) {
+    const typeLower = (type || '').toLowerCase();
+    const nameLower = (name || '').toLowerCase();
+
+    if (typeLower.includes('moto') || nameLower.includes('moto')) return <Moto size={14} color="#8595A6" />;
+    if (typeLower.includes('tricycle') || nameLower.includes('tricycle')) return <Tricycle size={14} color="#8595A6" />;
+    if (typeLower.includes('bus') || nameLower.includes('bus')) return <Bus size={14} color="#8595A6" />;
+    if (typeLower.includes('camion') || typeLower.includes('poids') || nameLower.includes('camion') || nameLower.includes('poids')) return <Truck size={14} color="#8595A6" />;
+    if (typeLower.includes('vélo') || nameLower.includes('vélo')) return <Cycling size={14} color="#8595A6" />;
+    if (typeLower.includes('voiture') || nameLower.includes('voiture')) return <Car size={14} color="#8595A6" />;
+
+    return <Car size={14} color="#8595A6" />;
 }
 
 export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
@@ -119,7 +139,7 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
                             Aucun dossier trouvé
                         </Typography>
                         <Typography variant="body2" sx={{ color: 'text.secondary', mb: 4, opacity: 0.8, maxWidth: 450, mx: 'auto' }}>
-                            Nous n'avons trouvé aucun document correspondant à votre recherche. 
+                            Nous n'avons trouvé aucun document correspondant à votre recherche.
                             Vérifiez les informations saisies ou assurez-vous que le véhicule est bien lié au numéro avec lequel vous êtes connecté.
                         </Typography>
                         <Button
@@ -184,8 +204,14 @@ export function ResultsView({ results, searchQuery, onReset, onSelectDoc }) {
 
                                             <Stack direction="row" spacing={2} sx={{ flexWrap: 'wrap', gap: 1 }}>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                                                    <Car size={14} color="#8595A6" />
-                                                    <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary', textTransform: 'uppercase' }}>
+                                                    {getVehicleIcon(doc.vehicleType, doc.vehicleTypeName)}
+                                                    <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
+                                                        {doc.vehicleTypeName || doc.vehicleType || 'VÉHICULE'}
+                                                    </Typography>
+                                                </Box>
+                                                <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+                                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                                                    <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
                                                         {maskPlate(doc.plateNumber)}
                                                     </Typography>
                                                 </Box>
